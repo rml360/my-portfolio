@@ -1,0 +1,256 @@
+/* ============================================================
+   styles.css — Romelle Domingo Portfolio
+   Shared across: index, about, work, case-dell, case-monster, case-reign
+   ============================================================ */
+
+.debug {
+  outline: 2px dotted yellow;
+  background-color: rgba(255, 0, 0, 0.5);
+}
+/* ── Material Symbols icon font rendering ── */
+.material-symbols-outlined {
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #0e0e0e;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3ae97a;
+}
+
+/* ─────────────────────────────────────────
+   BACKGROUND EFFECTS
+───────────────────────────────────────── */
+
+/* Dot grid overlay */
+.dot-grid {
+  background-image: radial-gradient(circle, #6b6b69 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+  opacity: 0.27;
+}
+
+/* Animated gradient background */
+@keyframes fluidGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.animated-bg {
+  background: linear-gradient(-45deg, #0e0e0e, #131313, #0f2319, #0e0e0e);
+  background-size: 400% 400%;
+  animation: fluidGradient 15s ease infinite;
+}
+
+/* Grain / noise overlay */
+@keyframes noise {
+  0% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, -5%);
+  }
+  20% {
+    transform: translate(-10%, 5%);
+  }
+  30% {
+    transform: translate(5%, -10%);
+  }
+  40% {
+    transform: translate(-5%, 15%);
+  }
+  50% {
+    transform: translate(-10%, 5%);
+  }
+  60% {
+    transform: translate(15%, 0);
+  }
+  70% {
+    transform: translate(0, 10%);
+  }
+  80% {
+    transform: translate(-15%, 0);
+  }
+  90% {
+    transform: translate(10%, 5%);
+  }
+  100% {
+    transform: translate(5%, 0);
+  }
+}
+.noise-overlay {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background: transparent
+    url("https://assets.iceable.com/img/noise-transparent.png") repeat 0 0;
+  opacity: 0.03;
+  z-index: 1;
+  pointer-events: none;
+  animation: noise 1s steps(2) infinite;
+}
+
+/* Mesh gradient bulbs */
+.mesh-bulb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.08;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.bulb-1 {
+  width: 600px;
+  height: 600px;
+  background: #3ae97a;
+  top: -10%;
+  left: 10%;
+  animation: moveBulb1 40s ease-in-out infinite alternate;
+}
+.bulb-2 {
+  width: 500px;
+  height: 500px;
+  background: #20da6e;
+  bottom: 10%;
+  right: 15%;
+  animation: moveBulb2 35s ease-in-out infinite alternate;
+}
+@keyframes moveBulb1 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(20%, 30%) scale(1.2);
+  }
+}
+@keyframes moveBulb2 {
+  0% {
+    transform: translate(0, 0) scale(1.1);
+  }
+  100% {
+    transform: translate(-30%, -20%) scale(0.9);
+  }
+}
+
+/* ─────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-up {
+  opacity: 0;
+  animation: fadeUp 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+.delay-1 {
+  animation-delay: 0.1s;
+}
+.delay-2 {
+  animation-delay: 0.25s;
+}
+.delay-3 {
+  animation-delay: 0.4s;
+}
+.delay-4 {
+  animation-delay: 0.55s;
+}
+.delay-5 {
+  animation-delay: 0.7s;
+}
+
+/* ─────────────────────────────────────────
+   BUTTON — fill slide on hover
+───────────────────────────────────────── */
+
+.btn-fill-hover:hover .btn-fill {
+  transform: scaleX(1);
+}
+.btn-fill {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* ─────────────────────────────────────────
+   ABOUT PAGE
+───────────────────────────────────────── */
+
+/* Timeline glowing dot */
+.neon-glow {
+  box-shadow: 0 0 16px rgba(58, 233, 122, 0.4);
+}
+
+/* ─────────────────────────────────────────
+   WORK PAGE — project cards
+───────────────────────────────────────── */
+
+.project-card {
+  transition:
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+.project-card:hover {
+  border-color: rgba(58, 233, 122, 0.5);
+  box-shadow: inset 0 0 32px rgba(58, 233, 122, 0.07);
+}
+.project-card img {
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.project-card:hover img {
+  opacity: 0.2;
+  transform: scale(1.06);
+}
+.reveal-content {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.project-card:hover .reveal-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ─────────────────────────────────────────
+   CASE STUDY PAGES — in-page nav scroll-spy
+───────────────────────────────────────── */
+
+.nav-link {
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+.nav-link.active {
+  color: #3ae97a;
+}

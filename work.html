@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>My Work | Romelle Domingo</title>
+  <link rel="icon" type="image/svg+xml" href="/img/svg/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#3ae97a",
+            "on-primary": "#004f22",
+            "surface": "#0e0e0e",
+            "surface-container-lowest": "#000000",
+            "surface-container-low": "#131313",
+            "surface-container": "#1a1a1a",
+            "surface-container-high": "#20201f",
+            "surface-container-highest": "#262626",
+            "surface-variant": "#262626",
+            "on-surface": "#ffffff",
+            "on-surface-variant": "#adaaaa",
+            "outline-variant": "#484847",
+            "outline": "#767575",
+          },
+          fontFamily: {
+            "headline": ["Plus Jakarta Sans", "sans-serif"],
+            "body": ["Manrope", "sans-serif"],
+            "label": ["Manrope", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px"
+          },
+          screens: {
+            "xl2": "1440px",
+          },
+        },
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    @media (min-width: 1024px) {
+      #main-content {
+        margin-left: 256px;
+        width: calc(100% - 256px);
+        box-sizing: border-box;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       DESKTOP SIDEBAR — My Work active
+  ════════════════════════════════════════════ -->
+  <aside class="hidden lg:flex flex-col justify-between p-8 z-50 fixed left-0 top-0 h-full w-64
+                border-r border-outline-variant/20 bg-surface-container-low/80 backdrop-blur-md
+                shadow-[32px_0_32px_rgba(0,0,0,0.06)]">
+
+    <div class="space-y-12">
+      <!-- Identity -->
+      <div class="space-y-6">
+        <div class="w-20 h-20 rounded-full overflow-hidden ring-2 ring-primary/30">
+          <img src="img/profile.png" alt="Romelle Domingo" class="w-full h-full object-cover object-center" />
+        </div>
+        <div>
+          <h1 class="text-xl font-black text-primary uppercase font-headline">Romelle Domingo</h1>
+          <p class="font-label text-xs uppercase tracking-widest text-on-surface-variant mt-1">UX/Product Designer</p>
+        </div>
+      </div>
+
+      <!-- Nav — My Work is active -->
+      <nav class="flex flex-col gap-6" aria-label="Primary">
+        <a href="index.html"
+          class="flex items-center gap-3 font-headline font-bold tracking-tight text-sm uppercase text-on-surface-variant hover:text-primary transition-all duration-300">
+          <span class="material-symbols-outlined">home</span>Home
+        </a>
+        <a href="work.html" aria-current="page" class="flex items-center gap-3 font-headline font-bold tracking-tight text-sm uppercase
+                  text-primary border-r-2 border-primary pr-4 transition-all duration-300">
+          <span class="material-symbols-outlined" style='font-variation-settings:"FILL" 1'>grid_view</span>My Work
+        </a>
+        <a href="about.html" class="flex items-center gap-3 font-headline font-bold tracking-tight text-sm uppercase
+                  text-on-surface-variant hover:text-primary transition-all duration-300">
+          <span class="material-symbols-outlined">person</span>About Me
+        </a>
+      </nav>
+    </div>
+
+    <!-- Let's Talk footer -->
+    <div class="space-y-5">
+      <h2 class="font-headline font-black text-on-surface text-3xl leading-tight tracking-tight">Let&#39;s Talk.</h2>
+      <div>
+        <p class="font-body text-sm text-on-surface font-semibold leading-snug">15 Years &mdash;</p>
+        <p class="font-body text-sm text-on-surface-variant leading-snug">
+          Bringing enterprise rigor &amp; brand emotion.<br />Available for new opportunities.
+        </p>
+      </div>
+      <div class="flex flex-col gap-4 pt-1">
+        <a href="tel:+17026084065" class="flex items-center gap-4 group transition-all duration-300">
+          <span
+            class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors duration-300 text-xl">phone_android</span>
+          <span
+            class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors duration-300">Mobile</span>
+        </a>
+        <a href="/cdn-cgi/l/email-protection#7e0c11131b12121b3e0c13124d484e501d1113"
+          class="flex items-center gap-4 group transition-all duration-300">
+          <span
+            class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors duration-300 text-xl">send</span>
+          <span
+            class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors duration-300">Email</span>
+        </a>
+        <a href="https://linkedin.com/in/somecallmenyce" target="_blank" rel="noopener"
+          class="flex items-center gap-4 group transition-all duration-300">
+          <svg
+            class="w-5 h-5 fill-current text-on-surface-variant group-hover:text-primary transition-colors duration-300"
+            viewBox="0 0 24 24">
+            <path
+              d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z" />
+          </svg>
+          <span
+            class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors duration-300">LinkedIn</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════
+       MOBILE / TABLET TOPBAR
+  ════════════════════════════════════════════ -->
+  <header
+    class="lg:hidden fixed top-0 left-0 w-full z-50 bg-surface-container-high/80 backdrop-blur-xl border-b border-outline-variant/20">
+    <div class="flex justify-between items-center px-6 py-4">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full overflow-hidden ring-1 ring-primary/30">
+          <a href="index.html"><img src="img/profile.png" alt="Romelle Domingo"
+              class="w-full h-full object-cover object-center" /></a>
+        </div>
+        <span class="text-base font-black text-primary font-headline tracking-tight">RD:Product Designer</span>
+      </div>
+      <button id="menu-toggle" aria-label="Open menu"
+        class="w-10 h-10 flex flex-col justify-center items-center gap-[5px]">
+        <span id="bar1"
+          class="block w-6 h-[2px] bg-on-surface rounded-full transition-all duration-300 origin-center"></span>
+        <span id="bar2" class="block w-6 h-[2px] bg-on-surface rounded-full transition-all duration-300"></span>
+        <span id="bar3"
+          class="block w-4 h-[2px] bg-primary rounded-full transition-all duration-300 origin-center self-end"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER -->
+  <div id="mobile-drawer" class="lg:hidden fixed inset-0 z-40 pointer-events-none">
+    <div id="drawer-backdrop"
+      class="absolute inset-0 bg-surface-container-lowest/80 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+    </div>
+    <nav id="drawer-panel" class="absolute top-0 right-0 h-full w-72 bg-surface-container-low border-l border-outline-variant/20
+                flex flex-col justify-between p-8 pt-24
+                translate-x-full transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]">
+      <div class="space-y-10">
+        <div class="space-y-6">
+          <a href="index.html" class="flex items-center gap-4 font-headline font-bold text-sm uppercase tracking-widest
+                    text-on-surface-variant hover:text-primary transition-colors duration-300">
+            <span class="material-symbols-outlined">home</span>
+            Home
+          </a>
+          <a href="work.html"
+            class="flex items-center gap-4 font-headline font-bold text-sm uppercase tracking-widest text-primary">
+            <span class="material-symbols-outlined" style='font-variation-settings:"FILL" 1'>grid_view</span>My Work
+          </a>
+          <a href="about.html" class="flex items-center gap-4 font-headline font-bold text-sm uppercase tracking-widest
+                    text-on-surface-variant hover:text-primary transition-colors duration-300">
+            <span class="material-symbols-outlined">person</span>About Me
+          </a>
+        </div>
+        <div class="h-px w-full bg-outline-variant/30"></div>
+        <div class="space-y-4">
+          <h2 class="font-headline font-black text-on-surface text-2xl leading-tight">Let&#39;s Talk.</h2>
+          <div>
+            <p class="font-body text-sm text-on-surface font-semibold">15 Years &mdash;</p>
+            <p class="font-body text-sm text-on-surface-variant leading-snug">Bringing enterprise rigor &amp; brand
+              emotion.<br />Available for new opportunities.</p>
+          </div>
+          <div class="flex flex-col gap-4 pt-1">
+            <a href="tel:+17026084065" class="flex items-center gap-4 group">
+              <span
+                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-xl">phone_android</span>
+              <span
+                class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors">Mobile</span>
+            </a>
+            <a href="/cdn-cgi/l/email-protection#d1a3bebcb4bdbdb491a3bcbde2e7e1ffb2bebc"
+              class="flex items-center gap-4 group">
+              <span
+                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-xl">send</span>
+              <span
+                class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors">Email</span>
+            </a>
+            <a href="https://linkedin.com/in/somecallmenyce" target="_blank" rel="noopener"
+              class="flex items-center gap-4 group">
+              <svg class="w-5 h-5 fill-current text-on-surface-variant group-hover:text-primary transition-colors"
+                viewBox="0 0 24 24">
+                <path
+                  d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z" />
+              </svg>
+              <span
+                class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors">LinkedIn</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Schedule CTA -->
+      <a href="https://calendly.com/romelle-rml360/30min">
+        <button
+          class="w-full py-4 border border-primary text-primary font-headline font-bold text-sm uppercase tracking-tighter rounded-full relative overflow-hidden group btn-fill-hover">
+          <span class="absolute inset-0 bg-primary btn-fill z-0"></span>
+          <span class="relative z-10 group-hover:text-on-primary transition-colors duration-300">Schedule a Chat</span>
+        </button>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Hamburger script -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script>
+      (function () {
+        const toggle = document.getElementById('menu-toggle');
+        const drawer = document.getElementById('mobile-drawer');
+        const backdrop = document.getElementById('drawer-backdrop');
+        const panel = document.getElementById('drawer-panel');
+        const bar1 = document.getElementById('bar1');
+        const bar2 = document.getElementById('bar2');
+        const bar3 = document.getElementById('bar3');
+        let open = false;
+        function openMenu() {
+          open = true;
+          drawer.classList.remove('pointer-events-none');
+          backdrop.classList.replace('opacity-0', 'opacity-100');
+          panel.classList.remove('translate-x-full');
+          bar1.style.transform = 'translateY(7px) rotate(45deg)';
+          bar2.style.opacity = '0';
+          bar3.style.transform = 'translateY(-7px) rotate(-45deg)';
+          bar3.style.width = '1.5rem';
+          bar3.style.alignSelf = 'auto';
+        }
+        function closeMenu() {
+          open = false;
+          drawer.classList.add('pointer-events-none');
+          backdrop.classList.replace('opacity-100', 'opacity-0');
+          panel.classList.add('translate-x-full');
+          bar1.style.transform = '';
+          bar2.style.opacity = '';
+          bar3.style.transform = '';
+          bar3.style.width = '';
+          bar3.style.alignSelf = '';
+        }
+        toggle.addEventListener('click', () => open ? closeMenu() : openMenu());
+        backdrop.addEventListener('click', closeMenu);
+      })();
+  </script>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN
+  ════════════════════════════════════════════ -->
+  <main class="lg:pl-64 min-h-screen relative overflow-hidden">
+
+    <!-- Background -->
+    <div class="absolute inset-0 z-0" aria-hidden="true">
+      <div class="animated-bg absolute inset-0 opacity-40"></div>
+      <div class="mesh-bulb bulb-1"></div>
+      <div class="mesh-bulb bulb-2"></div>
+      <div
+        class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2">
+      </div>
+      <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -ml-48 -mb-48">
+      </div>
+      <div class="dot-grid absolute inset-0"></div>
+    </div>
+
+    <!-- ── Portfolio Section ── -->
+    <section class="relative z-10 px-6 lg:px-16 pt-32 lg:pt-24 pb-24 w-full">
+      <div class="max-w-[1600px] mx-auto w-full">
+
+        <!-- Heading -->
+        <div class="mb-10 lg:mb-14 space-y-2 fade-up delay-1">
+          <span
+            class="font-label text-xs tracking-[0.2rem] uppercase text-primary font-bold fade-up delay-1">Portfolio</span>
+          <h1
+            class="font-headline font-black text-on-surface text-4xl lg:text-6xl leading-[1.05] tracking-tight fade-up delay-2">
+            My Work
+          </h1>
+        </div>
+
+        <!-- Project Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          <!-- ── Card 1: Dell — large featured ── -->
+          <div class="lg:col-span-2 group relative h-[480px] lg:h-[620px] overflow-hidden
+                      bg-surface-container border border-outline-variant/15 project-card rounded-[20px]
+                      fade-up delay-2">
+            <img src="img/cover-dell.jpg" alt="Dell Technologies Sales Ecosystem"
+              class="absolute inset-0 w-full h-full object-cover lg:p-0" />
+            <!-- Always-visible gradient base -->
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/90 via-surface-container-lowest/20 to-transparent">
+            </div>
+            <!-- Hover content -->
+            <div class="absolute inset-0 p-8 lg:p-12 flex flex-col justify-end">
+              <div class="reveal-content space-y-4">
+                <div class="flex flex-wrap gap-3">
+                  <span
+                    class="px-3 py-1 rounded-full bg-primary/20 text-primary font-label text-[10px] uppercase tracking-widest border border-primary/30">AI
+                    Guided Intelligence</span>
+                  <span
+                    class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label text-[10px] uppercase tracking-widest border border-outline-variant/30">Enterprise
+                    Platform Design</span>
+                </div>
+                <h3 class="text-3xl lg:text-4xl font-headline font-bold text-on-surface leading-tight">
+                  Restoring Trust in a
+                  Business-Critical Sales Applications
+                </h3>
+                <p>Streamlining fragmented infrastructure into a cohesive, intelligence-driven command center for global
+                  Sales teams.
+                </p>
+                <div class="flex items-center gap-8 lg:gap-12 pt-6 border-t border-outline-variant/30">
+                  <div>
+                    <p class="text-primary text-xl lg:text-2xl font-headline font-bold">11%</p>
+                    <p class="text-on-surface-variant text-[10px] uppercase tracking-widest font-label">CSAT Increase
+                    </p>
+                  </div>
+                  <div>
+                    <p class="text-primary text-xl lg:text-2xl font-headline font-bold">18%</p>
+                    <p class="text-on-surface-variant text-[10px] uppercase tracking-widest font-label">Efficiency Gain:
+                      Time on Task
+                    </p>
+                  </div>
+                  <div class="ml-auto">
+                    <a href="case-dell.html"
+                      class="flex items-center gap-2 text-on-surface font-headline font-bold text-sm uppercase group/btn">
+                      View Case
+                      <span
+                        class="material-symbols-outlined transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Right column: Cards 2 & 3 ── -->
+          <div class="flex flex-col gap-6">
+
+            <!-- Card 2: Monster Energy -->
+            <div class="group relative flex-1 min-h-[290px] overflow-hidden
+                        bg-surface-container border border-outline-variant/15 project-card rounded-[20px]
+                        fade-up delay-3">
+              <img src="img/cover-monster.jpg" alt="Monster Energy Direct"
+                class="absolute inset-0 w-full h-full object-cover" />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/90 via-surface-container-lowest/10 to-transparent">
+              </div>
+              <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                <div class="reveal-content space-y-3">
+                  <span
+                    class="px-3 py-1 rounded-full bg-primary/20 text-primary font-label text-[10px] uppercase tracking-widest border border-primary/30 inline-block">Mobile
+                    App</span>
+                  <span
+                    class="px-3 py-1 rounded-full bg-primary/20 text-primary font-label text-[10px] uppercase tracking-widest border border-primary/30 inline-block">E-Commerce</span>
+                  <span
+                    class="px-3 py-1 rounded-full bg-primary/20 text-primary font-label text-[10px] uppercase tracking-widest border border-primary/30 inline-block">Service
+                    Design</span>
+                  <h3 class="text-xl font-headline font-bold text-on-surface">Unleashing the Beast in Young Athletes
+                  </h3>
+                  <div class="pt-3 border-t border-outline-variant/30 flex justify-between items-center">
+                    <div>
+                      <p class="text-primary text-lg font-headline font-bold leading-none">Platform Launch</p>
+                      <p class="text-on-surface-variant text-[10px] uppercase tracking-widest font-label mt-1">
+                        Developing a high-performance athlete ecosystem for the world's most aggressive action sports
+                        brand.</p>
+                    </div>
+                    <a href="case-monster.html"
+                      class="flex items-center gap-2 text-on-surface font-headline font-bold text-xs uppercase group/btn">
+                      View <span
+                        class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3: Reign -->
+            <div class="group relative flex-1 min-h-[290px] overflow-hidden
+                        bg-surface-container border border-outline-variant/15 project-card rounded-[20px]
+                        fade-up delay-4">
+              <img src="img/cover-reign.jpg" alt="Reign Body Fuel Experience"
+                class="absolute inset-0 w-full h-full object-cover" />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/90 via-surface-container-lowest/10 to-transparent">
+              </div>
+              <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                <div class="reveal-content space-y-3">
+                  <span
+                    class="px-3 py-1 rounded-full bg-primary/20 text-primary font-label text-[10px] uppercase tracking-widest border border-primary/30 inline-block">Brand
+                    Marketing</span>
+                  <span
+                    class="px-3 py-1 rounded-full bg-primary/20 text-primary font-label text-[10px] uppercase tracking-widest border border-primary/30 inline-block">E-Commerce</span>
+                  <h3 class="text-xl font-headline font-bold text-on-surface">Reign Body Fuel Experience</h3>
+                  <div class="pt-3 border-t border-outline-variant/30 flex justify-between items-center">
+                    <div>
+                      <p class="text-primary text-lg font-headline font-bold leading-none">New Product Launch</p>
+                      <p class="text-on-surface-variant text-[10px] uppercase tracking-widest font-label mt-1">Crafting
+                        a high-octane visual identity for the next generation of performance nutrition. Built for the
+                        relentless, designed for the bold.</p>
+                    </div>
+                    <a href="case-reign.html"
+                      class="flex items-center gap-2 text-on-surface font-headline font-bold text-xs uppercase group/btn">
+                      View <span
+                        class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="relative z-10 px-6 lg:px-16 pt-32 lg:pt-24 pb-24 max-w-[1600px] mx-auto">
+      <!-- ── CTA ── -->
+      <section
+        class="relative bg-surface-container rounded-lg p-12 md:p-20 overflow-hidden text-center mb-24 fade-up delay-1">
+        <div class="dot-grid absolute inset-0 opacity-0" aria-hidden="true"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/5 blur-[80px] rounded-full"
+          aria-hidden="true"></div>
+        <div class="relative z-10 space-y-8">
+          <h2 class="font-headline text-3xl md:text-5xl font-bold tracking-tight">
+            Let's build something <span class="text-primary">extraordinary</span>?
+          </h2>
+          <p>Currently accepting select commissions. Focused on high-impact digital experiences that blend precision
+            with cinematic atmosphere.</p>
+          <a href="https://calendly.com/romelle-rml360/30min"
+            class="inline-block text-center px-8 py-4 border border-primary text-primary font-headline font-bold text-base uppercase tracking-widest rounded-full relative overflow-hidden group btn-fill-hover">
+            <span class="absolute inset-0 bg-primary btn-fill z-0"></span>
+            <span class="relative z-10 group-hover:text-on-primary transition-colors duration-300">Schedule a
+              Chat</span>
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── Footer ── -->
+    <footer class="w-full py-6 px-8 bg-surface-container-lowest relative z-10">
+      <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        <p class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant">© 2025 Romelle Domingo</p>
+        <!-- <div class="flex items-center gap-8">
+          <a href="tel:"
+            class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant hover:text-primary transition-all duration-300">Mobile</a>
+          <a href="/cdn-cgi/l/email-protection#c8"
+            class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant hover:text-primary transition-all duration-300">Email</a>
+          <a href="https://linkedin.com/in/" target="_blank" rel="noopener"
+            class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant hover:text-primary transition-all duration-300">LinkedIn</a>
+        </div> -->
+        <p class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant/40">Built with Precision
+        </p>
+      </div>
+    </footer>
+
+  </main>

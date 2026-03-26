@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Reign Energy Case Study | Romelle Domingo</title>
+  <link rel="icon" type="image/svg+xml" href="/img/svg/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#3ae97a", "on-primary": "#004f22",
+            "surface": "#0e0e0e", "surface-container-lowest": "#000000",
+            "surface-container-low": "#131313", "surface-container": "#1a1a1a",
+            "surface-container-high": "#20201f", "surface-container-highest": "#262626",
+            "on-surface": "#ffffff", "on-surface-variant": "#adaaaa",
+            "outline-variant": "#484847",
+          },
+          fontFamily: {
+            "headline": ["Plus Jakarta Sans", "sans-serif"],
+            "body": ["Manrope", "sans-serif"],
+            "label": ["Manrope", "sans-serif"],
+          },
+          borderRadius: { DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px" },
+        },
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <div class="fixed inset-0 dot-grid pointer-events-none z-0" aria-hidden="true"></div>
+  <div class="fixed top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none z-0"
+    aria-hidden="true"></div>
+
+  <!-- ── Case Study Sidebar ── -->
+  <aside class="hidden lg:flex flex-col px-6 pt-10 pb-8 z-40 fixed left-0 top-0 h-full w-64
+                border-r border-outline-variant/20 bg-surface-container-low/90 backdrop-blur-md justify-between">
+    <div>
+      <div class="flex items-center gap-4 mb-10">
+        <div
+          class="w-12 h-12 rounded-full overflow-hidden bg-surface-container border border-outline-variant/20 shrink-0">
+          <img src="img/svg/reign-helmet.svg" alt="Reign Energy" class="w-full h-full object-cover" />
+        </div>
+        <div>
+          <p class="text-primary font-black font-label text-[11px] uppercase tracking-widest">Case Study</p>
+          <p class="text-on-surface-variant text-[11px] uppercase tracking-[0.1rem]">Reign Energy</p>
+        </div>
+      </div>
+      <nav class="space-y-1" id="case-nav">
+        <a href="#overview"
+          class="nav-link active flex items-center gap-3 py-3 px-4 rounded-full font-label text-sm font-bold tracking-widest uppercase text-primary hover:bg-surface-container transition-all duration-300"><span
+            class="material-symbols-outlined text-lg">info</span> Overview</a>
+        <a href="#process"
+          class="nav-link flex items-center gap-3 py-3 px-4 rounded-full font-label text-sm font-bold tracking-widest uppercase text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all duration-300"><span
+            class="material-symbols-outlined text-lg">architecture</span> Process</a>
+        <a href="#solution"
+          class="nav-link flex items-center gap-3 py-3 px-4 rounded-full font-label text-sm font-bold tracking-widest uppercase text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all duration-300"><span
+            class="material-symbols-outlined text-lg">lightbulb</span> Solution</a>
+        <a href="#impact"
+          class="nav-link flex items-center gap-3 py-3 px-4 rounded-full font-label text-sm font-bold tracking-widest uppercase text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all duration-300"><span
+            class="material-symbols-outlined text-lg">analytics</span> Impact</a>
+        <a href="#retrospective"
+          class="nav-link flex items-center gap-3 py-3 px-4 rounded-full font-label text-sm font-bold tracking-widest uppercase text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all duration-300"><span
+            class="material-symbols-outlined text-lg">history_edu</span> Retrospective</a>
+      </nav>
+    </div>
+    <a href="work.html"
+      class="flex items-center gap-3 px-4 py-3 rounded-full border border-outline-variant/30 text-on-surface-variant hover:text-primary hover:border-primary transition-all duration-300 group">
+      <span
+        class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform duration-300">arrow_back</span>
+      <span class="font-label text-[11px] uppercase tracking-widest">All Projects</span>
+    </a>
+  </aside>
+
+  <!-- Mobile topbar -->
+  <header
+    class="lg:hidden fixed top-0 left-0 w-full z-50 bg-surface-container-high/80 backdrop-blur-xl border-b border-outline-variant/20 flex items-center justify-between px-6 py-4">
+    <a href="work.html"
+      class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors group">
+      <span
+        class="material-symbols-outlined group-hover:-translate-x-1 transition-transform duration-300">arrow_back</span>
+      <span class="font-label text-xs uppercase tracking-widest">Work</span>
+    </a>
+    <span class="font-headline font-black text-primary text-sm tracking-tight">Reign Energy</span>
+    <div class="w-16"></div>
+  </header>
+
+  <main class="lg:pl-64 relative z-10">
+
+    <!-- ── Overview / Hero ── -->
+    <section id="overview" class="px-8 lg:px-20 pt-24 lg:pt-16 pb-24 relative overflow-hidden">
+      <div class="max-w-6xl mx-auto">
+        <span class="text-primary font-label text-sm tracking-[0.2rem] uppercase mb-4 block fade-up delay-1">Brand
+          Identity/Creative Direction</span>
+        <h1 class="font-headline text-6xl md:text-8xl font-extrabold mb-8 leading-none fade-up delay-2">
+          Reign Energy.<br>
+          Total Body Fuel
+        </h1>
+        <p class="text-on-surface-variant text-xl md:text-2xl max-w-2xl font-light leading-relaxed fade-up delay-3">
+          Crafting a high-octane visual identity for the next generation of performance nutrition. Built for the
+          relentless, designed for the bold.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16 border-t border-outline-variant/20 pt-12 mb-16">
+          <div>
+            <p class="text-primary font-label mb-2 uppercase tracking-widest text-xs font-bold">Role</p>
+            <p class="text-on-surface text-lg">Lead Brand Designer</p>
+          </div>
+          <div>
+            <p class="text-primary font-label mb-2 uppercase tracking-widest text-xs font-bold">Timeline</p>
+            <p class="text-on-surface text-lg">4 Months</p>
+          </div>
+          <div>
+            <p class="text-primary font-label mb-2 uppercase tracking-widest text-xs font-bold">Deliverables</p>
+            <p class="text-on-surface text-lg">Visual Identity, Marketing Assets, E-Commerce Strategy</p>
+          </div>
+        </div>
+        <div class="rounded-lg overflow-hidden h-[480px] relative group">
+          <img src="img/reign-hero.jpg" alt="Reign hero shot — athlete in motion"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Process / Consumer Insights ── -->
+    <section id="process" class="px-8 lg:px-20 py-24 bg-surface-container-low">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+          <div class="md:col-span-4">
+            <h2 class="font-headline text-4xl font-bold mb-6">Consumer <br /> Insights</h2>
+            <p class="text-on-surface-variant leading-relaxed">Research revealed that modern consumers prioritize
+              functional purity over flashy marketing. We focused on transparency, technical precision, and
+              high-contrast accessibility.</p>
+          </div>
+          <div class="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div
+              class="bg-surface-container-high p-8 rounded-lg border border-outline-variant/10 flex flex-col justify-between h-64">
+              <span class="material-symbols-outlined text-primary text-4xl">group</span>
+              <div>
+                <h3 class="text-xl font-bold mb-2 font-headline">Gen-Z Athletes</h3>
+                <p class="text-sm text-on-surface-variant">The core demographic seeking authenticity and clean labels.
+                </p>
+              </div>
+            </div>
+            <div class="bg-primary p-8 rounded-lg flex flex-col justify-between h-64">
+              <span class="material-symbols-outlined text-on-primary text-4xl">bolt</span>
+              <div>
+                <h3 class="text-xl font-bold mb-2 text-on-primary font-headline">60 NPS Score</h3>
+                <p class="text-sm text-on-primary/80">Consistent Brand look & feel. Alignment of in store promo
+                  graphics, social media, and YouTube content.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Planning -->
+        <div class="flex flex-col md:flex-row gap-20 items-center mt-32">
+          <div class="flex-1 order-2 md:order-1">
+
+
+            <img src="img/wireframe-mockup-reign.png" alt="Sketching wireframes" class="w-full h-full object-cover" />
+
+
+
+          </div>
+          <div class="flex-1 order-1 md:order-2">
+            <span class="font-label text-primary mb-4 block text-xs uppercase tracking-widest">Consumer Insights</span>
+            <h2 class="font-headline text-4xl font-bold mb-8">Design Considerations</h2>
+            <p class="text-on-surface-variant mb-6 text-lg">For this new product launch there was careful design
+              decisions to consider. The upside was that the organization has other products within the spot fitness
+              category, giving them the necessary insights to understand the target users. We were able to set
+              expectations based on consumer insights.</p>
+            <ul class="space-y-4">
+              <li class="flex items-center gap-4"><span
+                  class="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span><span
+                  class="text-on-surface-variant text-sm tracking-widest">Health-conscious users prioritize
+                  what they consume, making clear nutrition facts and product benefits essential—core drivers of site
+                  engagement.</span></li>
+              <li class="flex items-center gap-4"><span
+                  class="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span><span
+                  class="text-on-surface-variant text-sm tracking-widest">Alongside product education,
+                  enabling seamless purchase and product discovery (via retailers like Walmart and Amazon) was critical
+                  to driving conversion.</span></li>
+              <li class="flex items-center gap-4"><span
+                  class="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span><span
+                  class="text-on-surface-variant text-sm tracking-widest">Competitive insights informed a more dynamic
+                  experience—leveraging influencer content and interactive product exploration to increase
+                  engagement.</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Solution / Hi-fi Prototypes ── -->
+    <section id="solution" class="px-8 lg:px-20 py-24 bg-surface-container-lowest">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-20">
+          <h2 class="font-headline text-5xl font-bold mb-6">High-Fidelity Artifacts</h2>
+          <p class="text-on-surface-variant max-w-2xl mx-auto">High-fidelity design was where the experience truly came
+            to life. Through refined visual systems, responsive layouts, and intentional interaction patterns, I
+            translated strategy into a cohesive, immersive brand experience. Designing directly in the browser allowed
+            me to shape the nuances of motion, hierarchy, and responsiveness in real time—ensuring the final product
+            wasn’t just visually strong, but felt seamless and alive across devices.</p>
+        </div>
+        <div class="space-y-24">
+          <div class="relative group pt-6">
+
+            <img src="img/reign-mobile-screens.png" alt="Pulse mobile app screens"
+              class="w-full rounded-lg shadow-2xl" />
+
+            <div
+              class="absolute -bottom-4 left-10 bg-primary text-on-primary px-8 py-4 rounded-lg font-bold shadow-xl font-headline text-sm">
+              01 / MOBILE EXPERIENCE
+            </div>
+          </div>
+          <div class="relative group pt-6">
+
+            <img src="img/reign-home-overview3.png" alt="Desktop ecosystem dashboard"
+              class="w-full rounded-lg shadow-2xl" />
+
+            <div
+              class="absolute -bottom-4 right-10 bg-white text-black px-8 py-4 rounded-lg font-bold shadow-xl font-headline text-sm">
+              02 / DESKTOP EXPERIENCE
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Impact (no separate section in Stitch — adding stats block) ── -->
+    <section id="impact" class="px-8 lg:px-20 py-24">
+      <div class="max-w-6xl mx-auto">
+        <div
+          class="bg-surface-container p-12 lg:p-20 rounded-xl border border-outline-variant/10 relative overflow-hidden">
+          <div
+            class="absolute top-0 right-0 w-96 h-96 bg-primary/10 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2">
+          </div>
+          <h2 class="font-headline text-4xl font-bold mb-16 relative z-10">Campaign Performance</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
+            <div>
+              <p class="text-primary text-6xl font-black mb-2 font-headline">4.8M</p>
+              <p class="text-on-surface-variant uppercase tracking-widest text-xs font-bold mb-4">Launch Impressions</p>
+              <p class="text-sm">Across paid and organic channels in the first 30 days.</p>
+            </div>
+            <div>
+              <p class="text-primary text-6xl font-black mb-2 font-headline">+67%</p>
+              <p class="text-on-surface-variant uppercase tracking-widest text-xs font-bold mb-4">E-Commerce Uplift</p>
+              <p class="text-sm">Direct-to-consumer sales increase following the rebrand.</p>
+            </div>
+            <div>
+              <p class="text-primary text-6xl font-black mb-2 font-headline">22</p>
+              <p class="text-on-surface-variant uppercase tracking-widest text-xs font-bold mb-4">Markets Launched</p>
+              <p class="text-sm">Simultaneous rollout across North America, EU, and APAC.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Retrospective ── -->
+    <section id="retrospective" class="px-8 lg:px-20 py-24 bg-surface-container-low">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-10">
+          <div class="md:col-span-5">
+            <span class="font-label text-primary mb-4 block text-xs uppercase tracking-widest">Retrospective</span>
+            <h2 class="font-headline text-4xl font-bold mb-8">Project Challenges</h2>
+            <p class="text-on-surface-variant text-lg leading-relaxed">This project required rapid alignment under tight
+              timelines while building trust with a new marketing team, achieved through structured processes that
+              enabled fast, confident decision-making.</p>
+          </div>
+          <div class="md:col-span-7 space-y-6">
+            <div
+              class="p-8 bg-surface-container rounded-lg border border-outline-variant/10 hover:border-primary/30 transition-all duration-300 group">
+              <div class="flex items-start gap-6">
+                <span class="text-primary font-headline text-2xl font-black">01</span>
+                <div>
+                  <h4 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors font-headline">Time
+                    Constraints</h4>
+                  <p class="text-on-surface-variant text-sm">With a tight launch timeline and a new marketing team, we
+                    aligned quickly through a design sprint—validating ideas fast while building trust by involving them
+                    throughout the process.</p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="p-8 bg-surface-container rounded-lg border border-outline-variant/10 hover:border-primary/30 transition-all duration-300 group">
+              <div class="flex items-start gap-6">
+                <span class="text-primary font-headline text-2xl font-black">02</span>
+                <div>
+                  <h4 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors font-headline">
+                    Stakeholder Feedback</h4>
+                  <p class="text-on-surface-variant text-sm">To avoid unproductive feedback loops, I structured reviews
+                    around clear, objective criteria—leading to smoother approvals and stronger trust in design moving
+                    forward.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          <div class="md:col-span-5">
+            <h2 class="font-headline text-4xl font-bold mb-8">Lessons Learned</h2>
+            <p class="text-on-surface-variant text-lg leading-relaxed">Reflecting on the Reign Energy project provided
+              critical insights into high-performance brand building in the digital age.</p>
+          </div>
+          <div class="md:col-span-7 space-y-6">
+            <div
+              class="p-8 bg-surface-container rounded-lg border border-outline-variant/10 hover:border-primary/30 transition-all duration-300 group">
+              <div class="flex items-start gap-6">
+                <span class="text-primary font-headline text-2xl font-black">03</span>
+                <div>
+                  <h4 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors font-headline">Design
+                    Leadership</h4>
+                  <p class="text-on-surface-variant text-sm">This project reinforced the importance of adapting process
+                    to context—balancing speed and creativity while maintaining a strong UX foundation.</p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="p-8 bg-surface-container rounded-lg border border-outline-variant/10 hover:border-primary/30 transition-all duration-300 group">
+              <div class="flex items-start gap-6">
+                <span class="text-primary font-headline text-2xl font-black">04</span>
+                <div>
+                  <h4 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors font-headline">Cross
+                    Functional Collaboration</h4>
+                  <p class="text-on-surface-variant text-sm">Under tight timelines, alignment was critical. Clear
+                    communication and a collaborative approach kept marketing and development in sync, enabling a
+                    successful launch.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 px-8 mt-24 bg-surface-container-lowest relative z-10">
+      <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        <p class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant">© 2025 Romelle Domingo</p>
+        <!-- <div class="flex items-center gap-8">
+          <a href="tel:+"
+            class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant hover:text-primary transition-all duration-300">Mobile</a>
+          <a href="/cdn-cgi/l/email-protection#86"
+            class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant hover:text-primary transition-all duration-300">Email</a>
+          <a href="https://linkedin.com/in/" target="_blank" rel="noopener"
+            class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant hover:text-primary transition-all duration-300">LinkedIn</a>
+        </div> -->
+        <p class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant/40">Built with Precision
+        </p>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+      (function () {
+        const sections = ['overview', 'process', 'solution', 'impact', 'retrospective'];
+        const links = {};
+        sections.forEach(id => { links[id] = document.querySelector(`a[href="#${id}"]`); });
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              sections.forEach(id => { if (links[id]) { links[id].classList.remove('active', 'text-primary'); links[id].classList.add('text-on-surface-variant'); } });
+              if (links[entry.target.id]) { links[entry.target.id].classList.add('active', 'text-primary'); links[entry.target.id].classList.remove('text-on-surface-variant'); }
+            }
+          });
+        }, { threshold: 0.3 });
+        sections.forEach(id => { const el = document.getElementById(id); if (el) observer.observe(el); });
+      })();
+  </script>
+</body>
+
+</html>

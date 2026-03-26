@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <!-- Preconnect to Google Fonts for faster DNS + TLS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <!-- Lexend — load only the weights actually used -->
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <title>Monster Energy Case Study | Romelle Domingo</title>
+  <link rel="icon" type="image/svg+xml" href="/img/svg/favicon.svg">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#3ae97a", "on-primary": "#004f22",
+            "surface": "#0e0e0e", "surface-container-lowest": "#000000",
+            "surface-container-low": "#131313", "surface-container": "#1a1a1a",
+            "surface-container-high": "#20201f", "surface-container-highest": "#262626",
+            "on-surface": "#ffffff", "on-surface-variant": "#adaaaa",
+            "outline-variant": "#484847", "error": "#ff7351",
+          },
+          fontFamily: {
+            "headline": ["Lexend", "sans-serif"],
+            "body": ["Lexend", "sans-serif"],
+            "label": ["Lexend", "sans-serif"],
+          },
+          borderRadius: { DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px" },
+        },
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <div class="fixed inset-0 dot-grid pointer-events-none z-0" aria-hidden="true"></div>
+  <div class="fixed top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none z-0"
+    aria-hidden="true"></div>
+
+  <!-- ── Case Study Sidebar ── -->
+  <aside class="hidden lg:flex flex-col px-6 pt-10 pb-8 z-40 fixed left-0 top-0 h-full w-64
+                border-r border-outline-variant/20 bg-surface-container-low/90 backdrop-blur-md justify-between">
+    <div>
+      <div class="flex items-center gap-4 mb-10">
+        <div
+          class="w-12 h-12 rounded-full overflow-hidden bg-surface-container border border-outline-variant/20 shrink-0">
+          <img src="img/svg/monster-claw.svg" alt="Monster Energy" class="w-full h-full object-cover" />
+        </div>
+        <div>
+          <p class="text-primary font-black font-label text-[11px] uppercase tracking-widest">Case Study</p>
+          <p class="text-on-surface-variant text-[11px] uppercase tracking-[0.1rem]">Monster Energy</p>
+        </div>
+      </div>
+      <nav class="space-y-1" id="case-nav">
+        <a href="#overview"
+          class="nav-link active flex items-center gap-3 py-3 px-4 rounded-full font-label text-sm font-bold tracking-widest uppercase text-primary hover:bg-surface-container transition-all duration-300"><span
+            class="material-symbols-outlined text-lg">info</span> Overview</a>
+        <a href="#process"
+          class="nav-link flex items-center gap-3 py-3 px-4 rounded-full font-label text-sm font-bold tracking-widest uppercase text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all duration-300"><span
+            class="material-symbols-outlined text-lg">architecture</span> Process</a>
+        <a href="#solution"
+          class="nav-link flex items-center gap-3 py-3 px-4 rounded-full font-label text-sm font-bold tracking-widest uppercase text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all duration-300"><span
+            class="material-symbols-outlined text-lg">lightbulb</span> Solution</a>
+        <a href="#impact"
+          class="nav-link flex items-center gap-3 py-3 px-4 rounded-full font-label text-sm font-bold tracking-widest uppercase text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all duration-300"><span
+            class="material-symbols-outlined text-lg">analytics</span> Impact</a>
+        <a href="#retrospective"
+          class="nav-link flex items-center gap-3 py-3 px-4 rounded-full font-label text-sm font-bold tracking-widest uppercase text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all duration-300"><span
+            class="material-symbols-outlined text-lg">history</span> Retrospective</a>
+      </nav>
+    </div>
+    <a href="work.html"
+      class="flex items-center gap-3 px-4 py-3 rounded-full border border-outline-variant/30 text-on-surface-variant hover:text-primary hover:border-primary transition-all duration-300 group">
+      <span
+        class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform duration-300">arrow_back</span>
+      <span class="font-label text-[11px] uppercase tracking-widest">All Projects</span>
+    </a>
+  </aside>
+
+  <!-- Mobile topbar -->
+  <header
+    class="lg:hidden fixed top-0 left-0 w-full z-50 bg-surface-container-high/80 backdrop-blur-xl border-b border-outline-variant/20 flex items-center justify-between px-6 py-4">
+    <a href="work.html"
+      class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors group">
+      <span
+        class="material-symbols-outlined group-hover:-translate-x-1 transition-transform duration-300">arrow_back</span>
+      <span class="font-label text-xs uppercase tracking-widest">Work</span>
+    </a>
+    <span class="font-headline font-black text-primary text-sm tracking-tight">Monster Energy</span>
+    <div class="w-16"></div>
+  </header>
+
+  <main class="relative z-10">
+
+    <!-- ── Overview ── -->
+    <section id="overview"
+      class="relative min-h-[640px] flex items-center px-8 lg:px-20 pt-24 lg:pt-0 pb-24 overflow-hidden">
+      <div class="relative z-10 max-w-5xl mx-auto w-full">
+        <span class="text-primary font-label text-sm tracking-[0.2rem] uppercase mb-4 block fade-up delay-1">Athlete
+          Development Mobile App</span>
+        <h1
+          class="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter mb-8 leading-[0.95] fade-up delay-2">
+          UNLEASH THE <span class="text-primary italic">BEAST.</span>
+        </h1>
+        <p class="text-on-surface-variant text-xl md:text-2xl max-w-2xl font-body leading-relaxed fade-up delay-3">
+          Developing a high-performance athlete ecosystem for the world's most aggressive action sports brand.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16 border-t border-outline-variant/20 pt-12">
+          <div>
+            <p class="text-primary font-label mb-2 uppercase tracking-widest text-xs font-bold">Role</p>
+            <p class="text-on-surface text-lg">Lead Product Designer</p>
+          </div>
+          <div>
+            <p class="text-primary font-label mb-2 uppercase tracking-widest text-xs font-bold">Timeline</p>
+            <p class="text-on-surface text-lg">6 Months</p>
+          </div>
+          <div>
+            <p class="text-primary font-label mb-2 uppercase tracking-widest text-xs font-bold">Deliverables</p>
+            <p class="text-on-surface text-lg">Athlete Dashboard, Mobile App, Design System</p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="absolute -right-20 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 blur-[120px] rounded-full pointer-events-none">
+      </div>
+    </section>
+
+    <!-- Bento stats -->
+    <section class="px-8 md:px-20 py-16 w-full">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+          <div
+            class="md:col-span-8 bg-surface-container rounded-lg p-10 flex flex-col justify-end relative overflow-hidden group min-h-[300px]">
+            <div
+              class="absolute inset-0 bg-cover bg-center opacity-40 group-hover:scale-105 transition-transform duration-700"
+              style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD4tJGqkHpzsKiLdVC1M_psOyldolmzfXBObGwiBMgCzaF3Q2lW0ck6vnLnHnNg7IC63dk7HMlLPDX3AezRFZjo9WwHq4Xd7-yH0tlp-jwie_-ZEH7tzsNw0Y0lVuMeyG0WzFv0YpRYTYYE2bT6ied6hbwB9RJbD5BAbtD3zN1fyPm91-edwDvXnSRPOlVA9cBE3opPW4vWshRlL0OqRpI-NO5Xv9NE0YiD3PV6ordT2ZeBihAdyRGhDVXK-0PpMewd_2pzR3kmdrA')">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div class="relative z-10">
+              <h3 class="font-headline text-3xl font-bold mb-4">The Development Program</h3>
+              <p class="text-on-surface-variant max-w-lg">A comprehensive 24-month pipeline designed to identify,
+                nurture, and accelerate professional action sports talent from grassroots to global podiums.</p>
+            </div>
+          </div>
+          <div class="md:col-span-4 bg-primary text-on-primary rounded-lg p-10 flex flex-col justify-between">
+            <span class="material-symbols-outlined text-5xl">bolt</span>
+            <div>
+              <h4 class="font-headline text-5xl font-extrabold mb-2">150+</h4>
+              <p class="font-label tracking-widest uppercase text-[11px] opacity-80">Elite Athletes Supported</p>
+            </div>
+          </div>
+          <div class="md:col-span-4 bg-surface-container-high rounded-lg p-10 border border-outline-variant/10">
+            <h4 class="font-headline text-xl font-bold mb-6 flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">trophy</span> Global Reach
+            </h4>
+            <p class="text-on-surface-variant text-sm leading-relaxed">Operating across 45 countries, ensuring the
+              Monster claw is visible at every major world tour event and training facility.</p>
+          </div>
+          <div
+            class="md:col-span-8 bg-surface-container rounded-lg px-10 flex items-center justify-between border border-outline-variant/10">
+            <div class="flex gap-8 items-center py-8">
+              <div>
+                <p class="text-primary font-headline text-2xl font-bold">20%</p>
+                <p class="text-[10px] uppercase tracking-widest text-on-surface-variant">Converstion Rate: Amateur to
+                  Pro</p>
+              </div>
+              <div class="h-8 w-px bg-outline-variant/30"></div>
+              <div>
+                <p class="text-primary font-headline text-2xl font-bold">92%</p>
+                <p class="text-[10px] uppercase tracking-widest text-on-surface-variant">Retention Rate</p>
+              </div>
+              <div class="h-8 w-px bg-outline-variant/30"></div>
+              <div>
+                <p class="text-primary font-headline text-2xl font-bold">14</p>
+                <p class="text-[10px] uppercase tracking-widest text-on-surface-variant">World Titles</p>
+              </div>
+              <div class="h-8 w-px bg-outline-variant/30"></div>
+              <div>
+                <p class="text-primary font-headline text-2xl font-bold">7%</p>
+                <p class="text-[10px] uppercase tracking-widest text-on-surface-variant">yearly signup growth</p>
+              </div>
+              <div class="h-8 w-px bg-outline-variant/30"></div>
+            </div>
+            <span class="material-symbols-outlined text-outline-variant/20 text-6xl hidden sm:block">monitoring</span>
+          </div>
+        </div>
+    </section>
+
+    <!-- ── Process ── -->
+    <section id="process" class="px-8 md:px-20 py-24 bg-surface-container-low">
+      <div class="max-w-4xl mx-auto text-center mb-20">
+        <h2 class="font-headline text-4xl font-bold mb-6">The Friction Points</h2>
+        <div class="h-1 w-20 bg-primary mx-auto mb-10 rounded-full"></div>
+        <p class="text-on-surface-variant text-lg">Athlete signups declined ~15% YoY, signaling eroding affinity and
+          loyalty. Payout delays of 4–6 weeks weakened trust, while fragmented IA, inconsistent UX, and poor mobile made
+          the platform hard to use—leaving it at risk of losing relevance with its core community.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+        <div class="flex flex-col gap-6">
+          <div class="w-12 h-12 flex items-center justify-center rounded-full bg-error/10 text-error">
+            <span class="material-symbols-outlined">
+              emergency_home
+            </span>
+          </div>
+          <h5 class="font-headline text-xl font-bold">Workflow Inefficiency & Operational Friction</h5>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Impact: Slows task completion, increases errors,
+            reduces operational efficiency</p>
+        </div>
+        <div class="flex flex-col gap-6">
+          <div class="w-12 h-12 flex items-center justify-center rounded-full bg-error/10 text-error">
+            <span class="material-symbols-outlined">timer_off</span>
+          </div>
+          <h5 class="font-headline text-xl font-bold">Structural UX Failures in the Athlete Portal</h5>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Impact: Users struggle to navigate, compete, and
+            complete tasks efficiently</p>
+        </div>
+        <div class="flex flex-col gap-6">
+          <div class="w-12 h-12 flex items-center justify-center rounded-full bg-error/10 text-error">
+            <span class="material-symbols-outlined">
+              trending_down
+            </span>
+          </div>
+          <h5 class="font-headline text-xl font-bold">Declining Engagement &<br> Brand Affinity</h5>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Impact: Signals weakening loyalty, reduced
+            acquisition momentum, and potential competitor advantage</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Solution ── -->
+    <section id="solution" class="px-8 md:px-20 py-24 relative w-full">
+      <div class="max-w-6xl mx-auto">
+
+        <!-- Section header -->
+        <div class="mb-12">
+          <h2 class="font-headline text-4xl font-bold mb-3">The Solution</h2>
+          <p class="text-on-surface-variant text-lg max-w-2xl">Four pillars built to activate, retain,
+            and elevate Monster&#39;s global athlete network.</p>
+        </div>
+
+        <!-- Tab bar -->
+        <div class="flex gap-1 flex-wrap mb-10 border-b border-outline-variant/20" role="tablist">
+          <button onclick="switchMTab('attack')" id="mtab-attack"
+            class="mtab-btn active-mtab px-5 py-3 font-label text-xs font-bold uppercase tracking-widest rounded-t-lg transition-all duration-200"
+            role="tab" aria-selected="true">01 Plan of Attack</button>
+          <button onclick="switchMTab('cta')" id="mtab-cta"
+            class="mtab-btn px-5 py-3 font-label text-xs font-bold uppercase tracking-widest rounded-t-lg transition-all duration-200 text-on-surface-variant hover:text-primary"
+            role="tab">02 Call to Action</button>
+          <button onclick="switchMTab('enlist')" id="mtab-enlist"
+            class="mtab-btn px-5 py-3 font-label text-xs font-bold uppercase tracking-widest rounded-t-lg transition-all duration-200 text-on-surface-variant hover:text-primary"
+            role="tab">03 Enlistment Process</button>
+          <button onclick="switchMTab('onboard')" id="mtab-onboard"
+            class="mtab-btn px-5 py-3 font-label text-xs font-bold uppercase tracking-widest rounded-t-lg transition-all duration-200 text-on-surface-variant hover:text-primary"
+            role="tab">04 Onboarding</button>
+          <button onclick="switchMTab('claims')" id="mtab-claims"
+            class="mtab-btn px-5 py-3 font-label text-xs font-bold uppercase tracking-widest rounded-t-lg transition-all duration-200 text-on-surface-variant hover:text-primary"
+            role="tab">05 Claim Management</button>
+        </div>
+
+        <!-- ── Tab 1: Plan of Attack ── -->
+        <div id="mpanel-attack" class="mtab-panel" role="tabpanel">
+          <div class="flex flex-col lg:flex-row gap-16 items-center">
+            <div class="lg:w-1/2 space-y-10">
+              <h3 class="font-headline text-5xl font-extrabold tracking-tight leading-none">THE PLAN <br /><span
+                  class="text-primary">OF ATTACK.</span></h3>
+              <div class="space-y-8">
+                <div class="flex gap-6 group">
+                  <div
+                    class="shrink-0 w-8 h-8 rounded-full border border-primary text-primary flex items-center justify-center font-bold text-xs group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                    01</div>
+                  <div>
+                    <h6 class="font-headline font-bold mb-2">Centralized Performance Hub</h6>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">Deployed a proprietary web-app connecting
+                      wearable tech directly to team manager dashboards.</p>
+                  </div>
+                </div>
+                <div class="flex gap-6 group">
+                  <div
+                    class="shrink-0 w-8 h-8 rounded-full border border-primary text-primary flex items-center justify-center font-bold text-xs group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                    02</div>
+                  <div>
+                    <h6 class="font-headline font-bold mb-2">The "Quick-Claw" Protocol</h6>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">Streamlined legal framework allowing for
+                      72-hour athlete vetting and contract activation.</p>
+                  </div>
+                </div>
+                <div class="flex gap-6 group">
+                  <div
+                    class="shrink-0 w-8 h-8 rounded-full border border-primary text-primary flex items-center justify-center font-bold text-xs group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                    03</div>
+                  <div>
+                    <h6 class="font-headline font-bold mb-2">Unified Content Engine</h6>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">Automated RAW-to-REEL pipeline for social
+                      media distribution within minutes of event finishes.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="lg:w-1/2 relative">
+              <div
+                class="rounded-xl overflow-hidden shadow-2xl bg-surface-container-high border border-outline-variant/10">
+                <img src="img/ma-mobile.jpg" alt="Athlete performance dashboard"
+                  class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+              </div>
+              <div
+                class="absolute -bottom-6 -left-6 bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/20 shadow-xl hidden md:block">
+                <p class="text-primary font-headline text-3xl font-bold">ROI +130%</p>
+                <p class="text-[10px] uppercase tracking-widest text-on-surface-variant">Attributed Brand Lift</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Tab 2: Call to Action ── -->
+        <div id="mpanel-cta" class="mtab-panel hidden" role="tabpanel">
+          <div class="flex flex-col gap-12 items-start">
+            <img src="img/objective1.png" alt="Monster Army Call to Action — Battlefield Events feed"
+              class="w-full object-contain" />
+            <div class="space-y-6">
+              <h3 class="font-headline text-3xl font-bold">Call to Action</h3>
+              <p class="text-on-surface-variant leading-relaxed">
+                The Monster Army app&#39;s home feed was redesigned to surface the most urgent, motivating content first
+                —
+                live battlefield event results, upcoming race schedules, and prize totals up for grabs. The goal was to
+                make every visit feel like the starting line, not an admin panel.
+              </p>
+              <div class="space-y-4">
+                <div class="p-5 rounded-lg bg-surface-container border border-outline-variant/10">
+                  <p class="font-bold mb-1">Battlefield Events Feed</p>
+                  <p class="text-on-surface-variant text-sm leading-relaxed">Real-time race results and upcoming events
+                    surfaced by sport, ranked by prize value and proximity.</p>
+                </div>
+                <div class="p-5 rounded-lg bg-surface-container border border-outline-variant/10">
+                  <p class="font-bold mb-1">$967,125 Cash Up for Grabs</p>
+                  <p class="text-on-surface-variant text-sm leading-relaxed">A live prize counter at the top of the feed
+                    created urgency and gave athletes a tangible reason to engage daily.</p>
+                </div>
+                <div class="p-5 rounded-lg bg-surface-container border border-outline-variant/10">
+                  <p class="font-bold mb-1">Dual-View Navigation</p>
+                  <p class="text-on-surface-variant text-sm leading-relaxed">Athletes toggle between Race Results and
+                    Upcoming Races — with filter controls to drill down by sport, date, and location.</p>
+                </div>
+                <div class="p-5 rounded-lg bg-primary/10 border border-primary/20">
+                  <p class="text-primary font-bold text-sm mb-1">Enlistment Starts Now CTA</p>
+                  <p class="text-on-surface-variant text-sm">A persistent recruitment banner drove new
+                    athlete sign-ups directly from the battlefield results page.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── Tab 3: Enlistment Process ── -->
+        <div id="mpanel-enlist" class="mtab-panel hidden" role="tabpanel">
+          <div class="flex flex-col gap-12 items-start">
+            <img src="img/objective2.png" alt="Monster Army Call to Action — Battlefield Events feed"
+              class="w-full object-contain" />
+            <div class="space-y-6">
+              <h3 class="font-headline text-3xl font-bold">Enlistment Process</h3>
+              <p class="text-on-surface-variant leading-relaxed">
+                The sign-up flow was reduced from a multi-step web form to a three-screen mobile-first experience.
+                Athletes upload a profile photo, enter basic personal info, and submit — all within under two minutes.
+                A congratulations confirmation immediately loops them into the referral engine.
+              </p>
+              <div class="space-y-4">
+                <div class="flex items-start gap-4">
+                  <div
+                    class="shrink-0 w-8 h-8 rounded-full bg-primary/10 border border-primary/30 text-primary flex items-center justify-center font-bold text-xs">
+                    01</div>
+                  <div>
+                    <p class="font-bold mb-1">Monster Army Enlistment Form</p>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">Profile settings. Minimal friction.
+                      Maximum completion rate.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div
+                    class="shrink-0 w-8 h-8 rounded-full bg-primary/10 border border-primary/30 text-primary flex items-center justify-center font-bold text-xs">
+                    02</div>
+                  <div>
+                    <p class="font-bold mb-1">Home Feed Entry Point</p>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">"Enlistment Starts Now" CTA card embedded
+                      in the battlefield events feed drove organic discovery.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div
+                    class="shrink-0 w-8 h-8 rounded-full bg-primary/10 border border-primary/30 text-primary flex items-center justify-center font-bold text-xs">
+                    03</div>
+                  <div>
+                    <p class="font-bold mb-1">Referral Loop</p>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">Post-enlistment confirmation immediately
+                      prompts athletes to refer friends — turning every sign-up into a growth event.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-4 flex-wrap pt-2">
+                <div
+                  class="px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-label uppercase tracking-widest text-on-surface-variant">
+                  Mobile-First</div>
+                <div
+                  class="px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-label uppercase tracking-widest text-on-surface-variant">
+                  &lt;2 Min Completion</div>
+                <div
+                  class="px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-xs font-label uppercase tracking-widest text-primary">
+                  Built-in Referral</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Tab 4: Onboarding ── -->
+        <div id="mpanel-onboard" class="mtab-panel hidden" role="tabpanel">
+          <div class="flex flex-col gap-12 items-start">
+            <img src="img/objective3.png" alt="Monster Army Onboarding flow screens" class="w-full object-contain" />
+            <div class="space-y-6">
+              <h3 class="font-headline text-3xl font-bold">Onboarding</h3>
+              <p class="text-on-surface-variant leading-relaxed">
+                Once accepted, athletes receive a contract summary modal with their rank, sport, and offer details —
+                followed by a three-step welcome sequence that explains how to build a resume, get paid, and access
+                the Monster gear shop. The flow was designed to eliminate the onboarding support load that previously
+                overwhelmed team managers.
+              </p>
+              <div class="space-y-4">
+                <div class="p-5 rounded-lg bg-surface-container border border-outline-variant/10">
+                  <p class="font-bold mb-1">Accept Your Offer Modal</p>
+                  <p class="text-on-surface-variant text-sm leading-relaxed">Contract summary including sport, rank,
+                    offer percentage, and monthly allotments (Monster cases + gear items). One-tap accept.</p>
+                </div>
+                <div class="p-5 rounded-lg bg-surface-container border border-outline-variant/10">
+                  <p class="font-bold mb-1">Welcome to Monster Army</p>
+                  <p class="text-on-surface-variant text-sm leading-relaxed">3-card carousel: Build your resume → Start
+                    Getting Paid → Shop Cool Gear. Each card surfaced the primary action for that feature.</p>
+                </div>
+                <div class="p-5 rounded-lg bg-surface-container border border-outline-variant/10">
+                  <p class="font-bold mb-1">Profile Completion Driver</p>
+                  <p class="text-on-surface-variant text-sm leading-relaxed">Athletes were directed to complete their
+                    profile and resume before their first event to unlock sponsorship visibility.</p>
+                </div>
+              </div>
+              <div class="p-5 rounded-lg bg-primary/10 border border-primary/20">
+                <p class="text-primary font-bold text-sm mb-1">Result: 3× faster time-to-first-event</p>
+                <p class="text-on-surface-variant text-sm">Athletes who completed the onboarding flow entered their
+                  first event within 72 hours vs. the previous 3-week average.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Tab 5: Claim Management ── -->
+        <div id="mpanel-claims" class="mtab-panel hidden" role="tabpanel">
+          <div class="flex flex-col gap-12 items-start">
+            <img src="img/objective4.png" alt="Monster Army Claim Management screens" class="w-full object-contain" />
+            <div class="space-y-6">
+              <h3 class="font-headline text-3xl font-bold">Claim Management</h3>
+              <p class="text-on-surface-variant leading-relaxed">
+                The prize claim flow replaced a manual email-based process with an in-app dashboard that gave athletes
+                full visibility over their earnings, pending payouts, and contingency status — in real time.
+              </p>
+              <div class="space-y-4">
+                <div class="flex items-start gap-4">
+                  <div
+                    class="shrink-0 w-8 h-8 rounded-full bg-primary/10 border border-primary/30 text-primary flex items-center justify-center font-bold text-xs">
+                    01</div>
+                  <div>
+                    <p class="font-bold mb-1">Get Paid Dashboard</p>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">At-a-glance view of available payouts (7)
+                      and career earnings ($3,450). Contingency list with claim status per event: Claimed, Pending, or
+                      available to Claim.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div
+                    class="shrink-0 w-8 h-8 rounded-full bg-primary/10 border border-primary/30 text-primary flex items-center justify-center font-bold text-xs">
+                    02</div>
+                  <div>
+                    <p class="font-bold mb-1">Athlete Profile &amp; Upcoming Events</p>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">Profile page surfaces sport rank, bio,
+                      and a live upcoming events list with prize amounts — reinforcing the athlete&#39;s earning
+                      potential at a glance.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div
+                    class="shrink-0 w-8 h-8 rounded-full bg-primary/10 border border-primary/30 text-primary flex items-center justify-center font-bold text-xs">
+                    03</div>
+                  <div>
+                    <p class="font-bold mb-1">Prize Confirmation</p>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">A full-screen celebration state ("You
+                      Placed 1st at FISE Hiroshima 2019 — You Claimed $500!") made winning feel visceral and
+                      brand-consistent.</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Stats row -->
+              <div class="grid grid-cols-3 gap-3 pt-2">
+                <div class="p-4 rounded-lg bg-surface-container border border-outline-variant/10 text-center">
+                  <p class="font-headline font-black text-primary text-2xl">92%</p>
+                  <p class="font-label text-[9px] uppercase tracking-widest text-on-surface-variant mt-1">Claim Rate</p>
+                </div>
+                <div class="p-4 rounded-lg bg-surface-container border border-outline-variant/10 text-center">
+                  <p class="font-headline font-black text-primary text-2xl">35%</p>
+                  <p class="font-label text-[9px] uppercase tracking-widest text-on-surface-variant mt-1">150+ new
+                    yearly signups
+                  </p>
+                </div>
+                <div class="p-4 rounded-lg bg-surface-container border border-outline-variant/10 text-center">
+                  <p class="font-headline font-black text-primary text-2xl">72h</p>
+                  <p class="font-label text-[9px] uppercase tracking-widest text-on-surface-variant mt-1">Avg. Payout
+                    Time</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <style>
+        .active-mtab {
+          color: #3ae97a;
+          border-bottom: 2px solid #3ae97a;
+          background: rgba(58, 233, 122, 0.06);
+        }
+
+        .mtab-btn {
+          border-bottom: 2px solid transparent;
+        }
+      </style>
+      <script>
+        function switchMTab(id) {
+          document.querySelectorAll('.mtab-panel').forEach(p => p.classList.add('hidden'));
+          document.querySelectorAll('.mtab-btn').forEach(b => {
+            b.classList.remove('active-mtab', 'text-primary');
+            b.classList.add('text-on-surface-variant');
+          });
+          document.getElementById('mpanel-' + id).classList.remove('hidden');
+          const btn = document.getElementById('mtab-' + id);
+          btn.classList.add('active-mtab', 'text-primary');
+          btn.classList.remove('text-on-surface-variant');
+        }
+      </script>
+    </section>
+
+    <!-- ── Impact ── -->
+    <section id="impact" class="px-8 md:px-20 py-24">
+      <div class="relative overflow-hidden max-w-6xl mx-auto">
+        <div class="absolute top-0 right-0 w-1/2 h-full"></div>
+        <div class="relative z-10">
+          <img src="img/ma-collage-lg.jpg" alt="Monster Army Call to Action — Battlefield Events feed"
+            class="w-full object-contain mb-10 rounded-xl" />
+          <h2 class="font-headline text-4xl md:text-6xl font-extrabold mb-12">MISSION <br />ACCOMPLISHED.</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div>
+              <p class="text-on-surface-variant text-lg leading-relaxed mb-8">
+                The result is the most efficient talent development machine in action sports. By removing the
+                administrative friction, we let the athletes do what they do best: <span
+                  class="text-white font-bold">Unleash the Beast.</span>
+              </p>
+              <ul class="space-y-4">
+                <li class="flex items-center gap-3 text-sm"><span class="material-symbols-outlined text-primary"
+                    style='font-variation-settings:"FILL" 1'>check_circle</span> Zero attrition of top-tier prospects in
+                  Q3/Q4.</li>
+                <li class="flex items-center gap-3 text-sm"><span class="material-symbols-outlined text-primary"
+                    style='font-variation-settings:"FILL" 1'>check_circle</span> 100% cloud-synced performance metrics.
+                </li>
+                <li class="flex items-center gap-3 text-sm"><span class="material-symbols-outlined text-primary"
+                    style='font-variation-settings:"FILL" 1'>check_circle</span> Avg. 4.2M views per athlete launch
+                  event.</li>
+              </ul>
+            </div>
+            <div class="flex flex-col justify-center">
+              <div class="p-10 border-l-4 border-primary">
+                <p class="italic text-xl mb-6">"The new system didn't just change how we track athletes; it changed how
+                  we communicate with them. It's built for speed, just like us."</p>
+                <p class="font-headline font-bold">Marcus Thorne</p>
+                <p class="text-[10px] uppercase tracking-widest text-on-surface-variant">Global Director of Sports
+                  Marketing</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Retrospective ── -->
+    <section id="retrospective" class="py-24 bg-surface-container-low">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-4 mb-12">
+          <div class="h-px flex-grow bg-outline-variant/30"></div>
+          <h2 class="font-headline text-4xl font-bold whitespace-nowrap">Lessons Learned</h2>
+          <div class="h-px flex-grow bg-outline-variant/30"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div
+            class="p-8 bg-surface-container rounded-lg border border-outline-variant/10 hover:border-primary/30 transition-colors">
+            <span class="material-symbols-outlined text-primary mb-4 block">speed</span>
+            <h6 class="font-headline font-bold mb-3">Speed over Symmetry</h6>
+            <p class="text-on-surface-variant text-sm leading-relaxed">In action sports, the "perfect" UI is secondary
+              to real-time data ingestion. We learned that reduced latency in content delivery had a higher brand impact
+              than complex visual layouts.</p>
+          </div>
+          <div
+            class="p-8 bg-surface-container rounded-lg border border-outline-variant/10 hover:border-primary/30 transition-colors">
+            <span class="material-symbols-outlined text-primary mb-4 block">diversity_3</span>
+            <h6 class="font-headline font-bold mb-3">Cultural-Technical Alignment</h6>
+            <p class="text-on-surface-variant text-sm leading-relaxed">Building tools for athletes required a
+              mobile-first, "glove-friendly" design approach. High-contrast indicators were essential for readability in
+              high-glare training environments.</p>
+          </div>
+          <div
+            class="p-8 bg-surface-container rounded-lg border border-outline-variant/10 hover:border-primary/30 transition-colors">
+            <span class="material-symbols-outlined text-primary mb-4 block">integration_instructions</span>
+            <h6 class="font-headline font-bold mb-3">API Agnosticism</h6>
+            <p class="text-on-surface-variant text-sm leading-relaxed">The biggest friction wasn't code; it was legacy
+              legal structures. Designing the "Quick-Claw" framework required close collaboration with legal teams to
+              bake compliance directly into the UI.</p>
+          </div>
+          <div
+            class="p-8 bg-surface-container rounded-lg border border-outline-variant/10 hover:border-primary/30 transition-colors">
+            <span class="material-symbols-outlined text-primary mb-4 block">query_stats</span>
+            <h6 class="font-headline font-bold mb-3">Direct Correlation Metrics</h6>
+            <p class="text-on-surface-variant text-sm leading-relaxed">We moved from vanity social metrics to regional
+              sales spikes. Integrating localized e-commerce data allowed the team to see the immediate dollar value of
+              every athlete stunt.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 px-8 mt-24 bg-surface-container-lowest relative z-10">
+      <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        <p class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant">© 2025 Romelle Domingo</p>
+        <!-- <div class="flex items-center gap-8">
+          <a href="tel:+"
+            class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant hover:text-primary transition-all duration-300">Mobile</a>
+          <a href="/cdn-cgi/l/email-protection#86"
+            class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant hover:text-primary transition-all duration-300">Email</a>
+          <a href="https://linkedin.com/in/" target="_blank" rel="noopener"
+            class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant hover:text-primary transition-all duration-300">LinkedIn</a>
+        </div> -->
+        <p class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant/40">Built with Precision
+        </p>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const sections = ['overview', 'process', 'solution', 'impact', 'retrospective'];
+      const links = {};
+      sections.forEach(id => { links[id] = document.querySelector(`a[href="#${id}"]`); });
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            sections.forEach(id => { if (links[id]) { links[id].classList.remove('active', 'text-primary'); links[id].classList.add('text-on-surface-variant'); } });
+            if (links[entry.target.id]) { links[entry.target.id].classList.add('active', 'text-primary'); links[entry.target.id].classList.remove('text-on-surface-variant'); }
+          }
+        });
+      }, { threshold: 0.3 });
+      sections.forEach(id => { const el = document.getElementById(id); if (el) observer.observe(el); });
+    })();
+  </script>
+</body>
+
+</html>

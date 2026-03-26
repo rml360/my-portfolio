@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>RML360 | About</title>
+  <link rel="icon" type="image/svg+xml" href="/img/svg/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#3ae97a",
+            "on-primary": "#004f22",
+            "surface": "#0e0e0e",
+            "surface-container-lowest": "#000000",
+            "surface-container-low": "#131313",
+            "surface-container": "#1a1a1a",
+            "surface-container-high": "#20201f",
+            "surface-container-highest": "#262626",
+            "surface-variant": "#262626",
+            "on-surface": "#ffffff",
+            "on-surface-variant": "#adaaaa",
+            "outline-variant": "#484847",
+            "outline": "#767575",
+          },
+          fontFamily: {
+            "headline": ["Plus Jakarta Sans", "sans-serif"],
+            "body": ["Manrope", "sans-serif"],
+            "label": ["Manrope", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px"
+          },
+          screens: {
+            "xl2": "1440px",
+          },
+        },
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Always push main content past the fixed 256px sidebar */
+    @media (min-width: 1024px) {
+      #main-content {
+        margin-left: 256px;
+        width: calc(100% - 256px);
+        box-sizing: border-box;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       DESKTOP SIDEBAR — identical to home, About Me active
+  ════════════════════════════════════════════ -->
+  <aside class="hidden lg:flex flex-col justify-between p-8 z-50 fixed left-0 top-0 h-full w-64
+                border-r border-outline-variant/20 bg-surface-container-low/80 backdrop-blur-md
+                shadow-[32px_0_32px_rgba(0,0,0,0.06)]">
+
+    <div class="space-y-12">
+      <!-- Identity -->
+      <div class="space-y-6">
+        <div class="w-20 h-20 rounded-full overflow-hidden ring-2 ring-primary/30">
+          <img src="img/profile.png" alt="Romelle Domingo" class="w-full h-full object-cover object-center" />
+        </div>
+        <div>
+          <h1 class="text-xl font-black text-primary uppercase font-headline">Romelle Domingo</h1>
+          <p class="font-label text-xs uppercase tracking-widest text-on-surface-variant mt-1">UX/Product Designer</p>
+
+        </div>
+      </div>
+
+      <!-- Nav — About Me is active -->
+      <nav class="flex flex-col gap-6" aria-label="Primary">
+        <a href="index.html"
+          class="flex items-center gap-3 font-headline font-bold tracking-tight text-sm uppercase text-on-surface-variant hover:text-primary transition-all duration-300">
+          <span class="material-symbols-outlined">home</span>Home
+        </a>
+        <a href="work.html"
+          class="flex items-center gap-3 font-headline font-bold tracking-tight text-sm uppercase text-on-surface-variant hover:text-primary transition-all duration-300">
+          <span class="material-symbols-outlined">grid_view</span>My Work
+        </a>
+        <a href="about.html"
+          class="flex items-center gap-3 font-headline font-bold tracking-tight text-sm uppercase text-primary border-r-2 border-primary pr-4 transition-all duration-300">
+          <span class="material-symbols-outlined" style='font-variation-settings:"FILL" 1;'>person</span>About Me
+        </a>
+      </nav>
+    </div>
+
+    <!-- Let's Talk footer -->
+    <div class="space-y-5">
+      <h2 class="font-headline font-black text-on-surface text-3xl leading-tight tracking-tight">
+        Let&#39;s Talk.
+      </h2>
+      <div>
+        <p class="font-body text-sm text-on-surface font-semibold leading-snug">15 Years &mdash;</p>
+        <p class="font-body text-sm text-on-surface-variant leading-snug">
+          Bringing Enterprise Rigor &amp; Brand Emotion.<br />Available for New Opportunities.
+        </p>
+      </div>
+      <div class="flex flex-col gap-4 pt-1">
+        <a href="tel:+17026084065" class="flex items-center gap-4 group transition-all duration-300">
+          <span
+            class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors duration-300 text-xl">phone_android</span>
+          <span
+            class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors duration-300">Mobile</span>
+        </a>
+        <a href="/cdn-cgi/l/email-protection#7b0914161e17171e3b091617484d4b55181416"
+          class="flex items-center gap-4 group transition-all duration-300">
+          <span
+            class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors duration-300 text-xl">send</span>
+          <span
+            class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors duration-300">Email</span>
+        </a>
+        <a href="https://linkedin.com/in/somecallmenyce" target="_blank" rel="noopener"
+          class="flex items-center gap-4 group transition-all duration-300">
+          <svg
+            class="w-5 h-5 text-on-surface-variant group-hover:text-primary transition-colors duration-300 fill-current"
+            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z" />
+          </svg>
+          <span
+            class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors duration-300">LinkedIn</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════
+       MOBILE / TABLET TOPBAR
+  ════════════════════════════════════════════ -->
+  <header
+    class="lg:hidden fixed top-0 left-0 w-full z-50 bg-surface-container-high/80 backdrop-blur-xl border-b border-outline-variant/20">
+    <div class="flex justify-between items-center px-6 py-4">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full overflow-hidden ring-1 ring-primary/30">
+          <a href="index.html"><img src="img/profile.png" alt="Romelle Domingo"
+              class="w-full h-full object-cover object-center" /></a>
+        </div>
+        <span class="text-base font-black text-primary font-headline tracking-tight">RD:Product Designer</span>
+      </div>
+      <button id="menu-toggle" aria-label="Open menu"
+        class="w-10 h-10 flex flex-col justify-center items-center gap-[5px]">
+        <span id="bar1"
+          class="block w-6 h-[2px] bg-on-surface rounded-full transition-all duration-300 origin-center"></span>
+        <span id="bar2" class="block w-6 h-[2px] bg-on-surface rounded-full transition-all duration-300"></span>
+        <span id="bar3"
+          class="block w-4 h-[2px] bg-primary rounded-full transition-all duration-300 origin-center self-end"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER -->
+  <div id="mobile-drawer" class="lg:hidden fixed inset-0 z-40 pointer-events-none">
+    <div id="drawer-backdrop"
+      class="absolute inset-0 bg-surface-container-lowest/80 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+    </div>
+    <nav id="drawer-panel" class="absolute top-0 right-0 h-full w-72 bg-surface-container-low border-l border-outline-variant/20
+                flex flex-col justify-between p-8 pt-24
+                translate-x-full transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]">
+
+      <div class="space-y-10">
+        <div class="space-y-6">
+          <a href="index.html" class="flex items-center gap-4 font-headline font-bold text-sm uppercase tracking-widest
+                    text-on-surface-variant hover:text-primary transition-colors duration-300">
+            <span class="material-symbols-outlined">home</span>
+            Home
+          </a>
+          <a href="work.html" class="flex items-center gap-4 font-headline font-bold text-sm uppercase tracking-widest
+                    text-on-surface-variant hover:text-primary transition-colors duration-300">
+            <span class="material-symbols-outlined">grid_view</span>My Work
+          </a>
+          <a href="about.html"
+            class="flex items-center gap-4 font-headline font-bold text-sm uppercase tracking-widest text-primary">
+            <span class="material-symbols-outlined" style='font-variation-settings:"FILL" 1'>person</span>About Me
+          </a>
+        </div>
+        <div class="h-px w-full bg-outline-variant/30"></div>
+        <div class="space-y-4">
+          <h2 class="font-headline font-black text-on-surface text-2xl leading-tight">Let&#39;s Talk.</h2>
+          <div>
+            <p class="font-body text-sm text-on-surface font-semibold">15 Years &mdash;</p>
+            <p class="font-body text-sm text-on-surface-variant leading-snug">Bringing enterprise rigor &amp; brand
+              emotion.<br />Available for new opportunities.</p>
+          </div>
+          <div class="flex flex-col gap-4 pt-1">
+            <a href="tel:+17026084065" class="flex items-center gap-4 group">
+              <span
+                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-xl">phone_android</span>
+              <span
+                class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors">Mobile</span>
+            </a>
+            <a href="/cdn-cgi/l/email-protection#1d6f7270787171785d6f70712e2b2d337e7270"
+              class="flex items-center gap-4 group">
+              <span
+                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-xl">send</span>
+              <span
+                class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors">Email</span>
+            </a>
+            <a href="https://linkedin.com/in/somecallmenyce" target="_blank" rel="noopener"
+              class="flex items-center gap-4 group">
+              <svg class="w-5 h-5 fill-current text-on-surface-variant group-hover:text-primary transition-colors"
+                viewBox="0 0 24 24">
+                <path
+                  d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z" />
+              </svg>
+              <span
+                class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors">LinkedIn</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Schedule CTA -->
+      <a href="https://calendly.com/romelle-rml360/30min">
+        <button
+          class="w-full py-4 border border-primary text-primary font-headline font-bold text-sm uppercase tracking-tighter rounded-full relative overflow-hidden group btn-fill-hover">
+          <span class="absolute inset-0 bg-primary btn-fill z-0"></span>
+          <span class="relative z-10 group-hover:text-on-primary transition-colors duration-300">Schedule a Chat</span>
+        </button>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Hamburger script -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script>
+      (function () {
+        const toggle = document.getElementById('menu-toggle');
+        const drawer = document.getElementById('mobile-drawer');
+        const backdrop = document.getElementById('drawer-backdrop');
+        const panel = document.getElementById('drawer-panel');
+        const bar1 = document.getElementById('bar1');
+        const bar2 = document.getElementById('bar2');
+        const bar3 = document.getElementById('bar3');
+        let open = false;
+        function openMenu() {
+          open = true;
+          drawer.classList.remove('pointer-events-none');
+          backdrop.classList.replace('opacity-0', 'opacity-100');
+          panel.classList.remove('translate-x-full');
+          bar1.style.transform = 'translateY(7px) rotate(45deg)';
+          bar2.style.opacity = '0';
+          bar3.style.transform = 'translateY(-7px) rotate(-45deg)';
+          bar3.style.width = '1.5rem';
+          bar3.style.alignSelf = 'auto';
+        }
+        function closeMenu() {
+          open = false;
+          drawer.classList.add('pointer-events-none');
+          backdrop.classList.replace('opacity-100', 'opacity-0');
+          panel.classList.add('translate-x-full');
+          bar1.style.transform = '';
+          bar2.style.opacity = '';
+          bar3.style.transform = '';
+          bar3.style.width = '';
+          bar3.style.alignSelf = '';
+        }
+        toggle.addEventListener('click', () => open ? closeMenu() : openMenu());
+        backdrop.addEventListener('click', closeMenu);
+      })();
+  </script>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN
+  ════════════════════════════════════════════ -->
+  <main class="min-h-screen relative overflow-hidden" id="main-content">
+
+    <!-- Background -->
+    <div class="absolute inset-0 z-0" aria-hidden="true">
+      <div class="animated-bg absolute inset-0 opacity-40"></div>
+      <div class="mesh-bulb bulb-1"></div>
+      <div class="mesh-bulb bulb-2"></div>
+      <div class="absolute top-0 right-0 w-[700px] h-[700px] bg-primary/5 rounded-full blur-[120px] -mr-96 -mt-96">
+      </div>
+      <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -ml-48 -mb-48">
+      </div>
+      <div class="dot-grid absolute inset-0"></div>
+    </div>
+
+    <div class="relative z-10 px-6 lg:px-16 pt-32 lg:pt-24 pb-24 w-full max-w-[1600px] mx-auto">
+
+      <!-- ── Hero ── -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center pt-16 lg:pt-24 mb-32 fade-up delay-1">
+
+        <!-- Text -->
+        <div class="lg:col-span-7 space-y-8">
+          <span class="font-label text-xs tracking-[0.2rem] uppercase text-primary font-bold">Profile</span>
+          <h1
+            class="font-headline font-black text-on-surface text-4xl md:text-6xl leading-[1.05] tracking-tight fade-up delay-2">
+            UX/Product Designer.<br />
+            <span class="text-on-surface-variant">Systems Thinker.</span><br />
+            <span class="text-primary">Trust Builder.</span>
+          </h1>
+
+          <p class="text-on-surface-variant text-lg md:text-xl leading-relaxed font-light max-w-2xl fade-up delay-3">
+            I specialize in untangling complex enterprise data and transforming it into intuitive, scalable product
+            ecosystems. While I’ve spent recent years architecting intelligent workflows at Dell, my true passion lies
+            in the intersection of deep technical constraints and elegant, user-centric interfaces. I am a firm believer
+            in the power of robust design systems, data-driven design, and cross-functional harmony (yes, designers and
+            engineers can actually be best friends). I am eager to bring my track record of system-level thinking,
+            accessibility, and user validation to any team to help users visualize and trust the complex technology that
+            powers their work.
+          </p>
+
+          <div class="flex gap-6 items-center fade-up delay-4">
+            <div class="h-px w-12 bg-primary"></div>
+            <span class="font-label text-xs tracking-widest text-on-surface-variant uppercase">Based in Los Angeles,
+              CA</span>
+          </div>
+        </div>
+
+        <!-- Portrait -->
+        <div class="lg:col-span-5 relative group fade-up delay-5">
+          <div
+            class="absolute -inset-4 bg-primary/20 blur-2xl rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+          </div>
+          <div class="relative rounded-lg overflow-hidden bg-surface-container-high aspect-[4/5]">
+            <img src="img/profile-lg.jpg" alt="Romelle Domingo"
+              class="w-full h-full object-cover object-top grayscale contrast-125 hover:grayscale-0 transition-all duration-700" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Core Expertise ── -->
+      <section class="mb-40">
+        <div class="flex flex-col md:flex-row justify-between items-baseline mb-16 gap-4 fade-up delay-1">
+          <h2 class="font-headline text-3xl font-bold tracking-tight">Core Expertise</h2>
+          <div class="h-px flex-grow mx-8 bg-outline-variant/30 hidden md:block"></div>
+          <span class="font-label text-primary tracking-[0.2rem] uppercase font-bold text-[10px]">What I bring to the
+            table</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
+
+          <div class="group fade-up delay-2">
+            <div class="flex items-center gap-4 mb-4">
+              <span class="material-symbols-outlined text-primary text-3xl">architecture</span>
+              <h3 class="font-headline text-xl font-bold">Enterprise Platform Design (AI Guided Experiences)</h3>
+            </div>
+            <p class="text-on-surface-variant leading-relaxed pl-12">
+              Deconstructing complex workflows into manageable, intuitive interfaces for global scale applications.
+              Focused on transforming traditional configuration workflows into intelligent, AI-guided experiences,
+              making technical processes feel intuitive and trustworthy.
+            </p>
+          </div>
+
+          <div class="group fade-up delay-3">
+            <div class="flex items-center gap-4 mb-4">
+              <span class="material-symbols-outlined text-primary text-3xl">science</span>
+              <h3 class="font-headline text-xl font-bold">UX Research &amp; Synthesis</h3>
+            </div>
+            <p class="text-on-surface-variant leading-relaxed pl-12">
+              Deep-dive qualitative research that translates into data-driven design solutions andactionable product
+              strategy and design roadmaps.
+            </p>
+          </div>
+
+          <div class="group fade-up delay-4">
+            <div class="flex items-center gap-4 mb-4">
+              <span class="material-symbols-outlined text-primary text-3xl">groups</span>
+              <h3 class="font-headline text-xl font-bold">Cross-Functional Leadership</h3>
+            </div>
+            <p class="text-on-surface-variant leading-relaxed pl-12">
+              Partnering with Product and Engineering leadership to shape roadmap and platform strategy, aligning user
+              needs with technical and business constraints.
+            </p>
+          </div>
+
+          <div class="group fade-up delay-5">
+            <div class="flex items-center gap-4 mb-4">
+              <span class="material-symbols-outlined text-primary text-3xl">settings_input_component</span>
+              <h3 class="font-headline text-xl font-bold">Design System Architecture</h3>
+            </div>
+            <p class="text-on-surface-variant leading-relaxed pl-12">
+              Building and maintaining robust, multi-platform components, scalable pattern libraries, and
+              comprehensive design systems, accelerating development efficiency and increasing design throughput.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── Experience Timeline ── -->
+      <section class="mb-40">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-20 gap-8 fade-up delay-1">
+          <div>
+            <h2 class="font-headline text-4xl font-black mb-2">Professional Experience</h2>
+            <p class="text-on-surface-variant font-label tracking-widest uppercase text-xs">The journey of a technical
+              artist</p>
+          </div>
+
+          <a href="/Resume_2026.pdf" target="_blank"
+            class="flex items-center gap-3 px-8 py-4 bg-surface-container-high text-on-surface font-headline font-bold text-base uppercase tracking-widest rounded-full hover:bg-surface-variant transition-colors duration-300">
+            <span class="material-symbols-outlined text-primary">download</span>
+            Download Resume
+          </a>
+        </div>
+
+        <!-- Timeline -->
+        <div class="relative pl-8 md:pl-0 fade-up delay-2">
+          <!-- Center line desktop -->
+          <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-outline-variant/30 -translate-x-1/2">
+          </div>
+          <!-- Side line mobile -->
+          <div class="md:hidden absolute left-0 top-0 bottom-0 w-px bg-outline-variant/30"></div>
+
+          <div class="space-y-24">
+
+            <!-- Dell Technologies -->
+            <div class="relative flex flex-col md:flex-row items-start md:items-center">
+              <div class="md:w-1/2 md:pr-16 text-left md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                <h3 class="font-headline text-2xl font-bold">Principal Product Designer</h3>
+                <p class="text-primary font-bold mb-3 font-label tracking-widest uppercase text-xs">Dell Technologies
+                </p>
+                <p class="text-on-surface-variant leading-relaxed">
+                  Led design strategy for AI-powered configuration and transactional workflows, enabling enterprise
+                  users to move from product selection to validated purchase decisions with greater accuracy and
+                  confidence.
+                </p>
+              </div>
+              <div class="absolute left-[-8px] md:left-1/2 top-1 md:top-1/2 md:-translate-y-1/2 md:-translate-x-1/2
+                          w-4 h-4 rounded-full bg-primary border-4 border-surface z-20 neon-glow"></div>
+              <div class="md:w-1/2 md:pl-16 order-1 md:order-2">
+                <span class="font-headline text-4xl font-black text-outline-variant/40 italic">2021 — 2026</span>
+              </div>
+            </div>
+
+            <!-- Monster Energy -->
+            <div class="relative flex flex-col md:flex-row items-start md:items-center">
+              <div class="md:w-1/2 md:pr-16 text-left md:text-right order-1">
+                <span class="font-headline text-4xl font-black text-outline-variant/40 italic">2019 — 2020</span>
+              </div>
+              <div class="absolute left-[-8px] md:left-1/2 top-1 md:top-1/2 md:-translate-y-1/2 md:-translate-x-1/2
+                          w-4 h-4 rounded-full bg-surface-container-high border-4 border-surface z-20"></div>
+              <div class="md:w-1/2 md:pl-16 mt-6 md:mt-0 order-2">
+                <h3 class="font-headline text-2xl font-bold">Senior Staff UX/UI Designer</h3>
+                <p class="text-primary font-bold mb-3 font-label tracking-widest uppercase text-xs">Monster Energy</p>
+                <p class="text-on-surface-variant leading-relaxed">
+                  Directed the digital brand experience for product e-commerce platforms and internal sales tools,
+                  diplomatically
+                  aligning marketing, sales, and engineering initiatives toward customer-centered outcomes.
+                </p>
+              </div>
+            </div>
+
+            <!-- Monster Energy -->
+            <div class="relative flex flex-col md:flex-row items-start md:items-center">
+              <div class="md:w-1/2 md:pr-16 text-left md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                <h3 class="font-headline text-2xl font-bold">Staff UX/UI Designer</h3>
+                <p class="text-primary font-bold mb-3 font-label tracking-widest uppercase text-xs">Monster Energy</p>
+                <p class="text-on-surface-variant leading-relaxed">
+                  Designed and shipped customer-facing digital experiences across multiple brand families, balancing
+                  visual design with intuitive interaction patterns to drive measurable user engagement and brand
+                  stickiness. Gathered and analyzed user behavior data to inform design decisions and identify areas for
+                  improvement.
+                </p>
+              </div>
+              <div class="absolute left-[-8px] md:left-1/2 top-1 md:top-1/2 md:-translate-y-1/2 md:-translate-x-1/2
+                          w-4 h-4 rounded-full bg-surface-container-high border-4 border-surface z-20"></div>
+              <div class="md:w-1/2 md:pl-16 order-1 md:order-2">
+                <span class="font-headline text-4xl font-black text-outline-variant/40 italic">2016 — 2019</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CTA ── -->
+      <section
+        class="relative bg-surface-container rounded-lg p-12 md:p-20 overflow-hidden text-center mb-24 fade-up delay-1">
+        <div class="dot-grid absolute inset-0 opacity-0" aria-hidden="true"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/5 blur-[80px] rounded-full"
+          aria-hidden="true"></div>
+        <div class="relative z-10 space-y-8">
+          <h2 class="font-headline text-3xl md:text-5xl font-bold tracking-tight">
+            Ready to build something <span class="text-primary">extraordinary</span>?
+          </h2>
+          <p>Currently accepting select commissions. Focused on high-impact digital experiences that blend precision
+            with cinematic atmosphere.</p>
+          <a href="https://calendly.com/romelle-rml360/30min"
+            class="inline-block text-center px-8 py-4 border border-primary text-primary font-headline font-bold text-base uppercase tracking-widest rounded-full relative overflow-hidden group btn-fill-hover">
+            <span class="absolute inset-0 bg-primary btn-fill z-0"></span>
+            <span class="relative z-10 group-hover:text-on-primary transition-colors duration-300">Schedule a
+              Chat</span>
+          </a>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ── Footer ── -->
+    <footer class="w-full py-6 px-8 bg-surface-container-lowest relative z-10">
+      <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        <p class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant">© 2025 Romelle Domingo</p>
+        <!-- <div class="flex items-center gap-8">
+          <a href="tel:"
+            class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant hover:text-primary transition-all duration-300">Mobile</a>
+          <a href="/cdn-cgi/l/email-protection#c8"
+            class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant hover:text-primary transition-all duration-300">Email</a>
+          <a href="https://linkedin.com/in/" target="_blank" rel="noopener"
+            class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant hover:text-primary transition-all duration-300">LinkedIn</a>
+        </div> -->
+        <p class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant/40">Built with Precision
+        </p>
+      </div>
