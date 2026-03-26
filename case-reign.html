@@ -36,6 +36,15 @@
     }
   </script>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    @media (min-width: 1024px) {
+      #main-content {
+        margin-left: 256px;
+        width: calc(100% - 256px);
+        box-sizing: border-box;
+      }
+    }
+  </style>
 </head>
 
 <body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
@@ -97,7 +106,7 @@
     <div class="w-16"></div>
   </header>
 
-  <main class="lg:pl-64 relative z-10">
+  <main id="main-content" class="lg:pl-64 relative z-10">
 
     <!-- ── Overview / Hero ── -->
     <section id="overview" class="px-8 lg:px-20 pt-24 lg:pt-16 pb-24 relative overflow-hidden">
@@ -346,7 +355,15 @@
         </div>
       </div>
     </section>
+    <div class="pt-12 relative overflow-hidden max-w-6xl mx-auto">
+      <a href="case-reign.html" class="flex items-center justify-center gap-3 px-4 py-3 rounded-full border border-outline-variant/30
+              text-on-surface-variant hover:text-primary hover:border-primary transition-all duration-300 group">
 
+        <span class="font-label text-[11px] uppercase tracking-widest">Next: Dell Technologies</span>
+        <span
+          class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform duration-300">arrow_forward</span>
+      </a>
+    </div>
     <!-- Footer -->
     <footer class="w-full py-6 px-8 mt-24 bg-surface-container-lowest relative z-10">
       <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
