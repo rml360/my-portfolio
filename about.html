@@ -66,15 +66,10 @@
 
   <div class="noise-overlay" aria-hidden="true"></div>
 
-  <!-- ═══════════════════════════════════════════
-       DESKTOP SIDEBAR — identical to home, About Me active
-  ════════════════════════════════════════════ -->
-  <aside class="hidden lg:flex flex-col justify-between p-8 z-50 fixed left-0 top-0 h-full w-64
-                border-r border-outline-variant/20 bg-surface-container-low/80 backdrop-blur-md
-                shadow-[32px_0_32px_rgba(0,0,0,0.06)]">
-
+  <!-- DESKTOP SIDEBAR -->
+  <aside
+    class="hidden lg:flex flex-col justify-between p-8 z-50 fixed left-0 top-0 h-full w-64 border-r border-outline-variant/20 bg-surface-container-low/80 backdrop-blur-md shadow-[32px_0_32px_rgba(0,0,0,0.06)]">
     <div class="space-y-12">
-      <!-- Identity -->
       <div class="space-y-6">
         <div class="w-20 h-20 rounded-full overflow-hidden ring-2 ring-primary/30">
           <img src="img/profile.png" alt="Romelle Domingo" class="w-full h-full object-cover object-center" />
@@ -82,17 +77,14 @@
         <div>
           <h1 class="text-xl font-black text-primary uppercase font-headline">Romelle Domingo</h1>
           <p class="font-label text-xs uppercase tracking-widest text-on-surface-variant mt-1">UX/Product Designer</p>
-
         </div>
       </div>
-
-      <!-- Nav — About Me is active -->
       <nav class="flex flex-col gap-6" aria-label="Primary">
         <a href="index.html"
           class="flex items-center gap-3 font-headline font-bold tracking-tight text-sm uppercase text-on-surface-variant hover:text-primary transition-all duration-300">
           <span class="material-symbols-outlined">home</span>Home
         </a>
-        <a href="work.html"
+        <a href="Work.html"
           class="flex items-center gap-3 font-headline font-bold tracking-tight text-sm uppercase text-on-surface-variant hover:text-primary transition-all duration-300">
           <span class="material-symbols-outlined">grid_view</span>My Work
         </a>
@@ -102,26 +94,24 @@
         </a>
       </nav>
     </div>
-
-    <!-- Let's Talk footer -->
+    <!-- Let's Talk Footer -->
     <div class="space-y-5">
       <h2 class="font-headline font-black text-on-surface text-3xl leading-tight tracking-tight">
         Let&#39;s Talk.
       </h2>
       <div>
-        <p class="font-body text-sm text-on-surface font-semibold leading-snug">15 Years &mdash;</p>
         <p class="font-body text-sm text-on-surface-variant leading-snug">
-          Bringing Enterprise Rigor &amp; Brand Emotion.<br />Available for New Opportunities.
+          Bringing Enterprise Rigor <br> &amp; Brand Emotion.<br />
         </p>
       </div>
       <div class="flex flex-col gap-4 pt-1">
-        <a href="tel:+17026084065" class="flex items-center gap-4 group transition-all duration-300">
+        <a href="tel:+17026084065 " class="flex items-center gap-4 group transition-all duration-300">
           <span
             class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors duration-300 text-xl">phone_android</span>
           <span
             class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors duration-300">Mobile</span>
         </a>
-        <a href="/cdn-cgi/l/email-protection#7b0914161e17171e3b091617484d4b55181416"
+        <a href="/cdn-cgi/l/email-protection#e5978a8880898980a5978889d6d3d5cb868a88"
           class="flex items-center gap-4 group transition-all duration-300">
           <span
             class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors duration-300 text-xl">send</span>
@@ -143,12 +133,11 @@
     </div>
   </aside>
 
-  <!-- ═══════════════════════════════════════════
-       MOBILE / TABLET TOPBAR
-  ════════════════════════════════════════════ -->
+  <!-- MOBILE / TABLET TOPBAR -->
   <header
     class="lg:hidden fixed top-0 left-0 w-full z-50 bg-surface-container-high/80 backdrop-blur-xl border-b border-outline-variant/20">
     <div class="flex justify-between items-center px-6 py-4">
+      <!-- Logo -->
       <div class="flex items-center gap-3">
         <div class="w-8 h-8 rounded-full overflow-hidden ring-1 ring-primary/30">
           <a href="index.html"><img src="img/profile.png" alt="Romelle Domingo"
@@ -156,8 +145,9 @@
         </div>
         <span class="text-base font-black text-primary font-headline tracking-tight">RD:Product Designer</span>
       </div>
+      <!-- Hamburger -->
       <button id="menu-toggle" aria-label="Open menu"
-        class="w-10 h-10 flex flex-col justify-center items-center gap-[5px]">
+        class="w-10 h-10 flex flex-col justify-center items-center gap-[5px] group">
         <span id="bar1"
           class="block w-6 h-[2px] bg-on-surface rounded-full transition-all duration-300 origin-center"></span>
         <span id="bar2" class="block w-6 h-[2px] bg-on-surface rounded-full transition-all duration-300"></span>
@@ -169,36 +159,45 @@
 
   <!-- MOBILE DRAWER -->
   <div id="mobile-drawer" class="lg:hidden fixed inset-0 z-40 pointer-events-none">
+    <!-- Backdrop -->
     <div id="drawer-backdrop"
       class="absolute inset-0 bg-surface-container-lowest/80 backdrop-blur-sm opacity-0 transition-opacity duration-300">
     </div>
+    <!-- Panel -->
     <nav id="drawer-panel" class="absolute top-0 right-0 h-full w-72 bg-surface-container-low border-l border-outline-variant/20
                 flex flex-col justify-between p-8 pt-24
                 translate-x-full transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]">
 
+      <!-- Nav links -->
       <div class="space-y-10">
         <div class="space-y-6">
-          <a href="index.html" class="flex items-center gap-4 font-headline font-bold text-sm uppercase tracking-widest
-                    text-on-surface-variant hover:text-primary transition-colors duration-300">
+          <a href="index.html"
+            class="flex items-center gap-4 font-headline font-bold text-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors duration-300">
             <span class="material-symbols-outlined">home</span>
             Home
           </a>
-          <a href="work.html" class="flex items-center gap-4 font-headline font-bold text-sm uppercase tracking-widest
-                    text-on-surface-variant hover:text-primary transition-colors duration-300">
-            <span class="material-symbols-outlined">grid_view</span>My Work
+          <a href="work.html"
+            class="flex items-center gap-4 font-headline font-bold text-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors duration-300">
+            <span class="material-symbols-outlined">grid_view</span>
+            My Work
           </a>
           <a href="about.html"
             class="flex items-center gap-4 font-headline font-bold text-sm uppercase tracking-widest text-primary">
-            <span class="material-symbols-outlined" style='font-variation-settings:"FILL" 1'>person</span>About Me
+            <span class="material-symbols-outlined" style='font-variation-settings:"FILL" 1'>person</span>
+            About Me
           </a>
         </div>
+
+        <!-- Divider -->
         <div class="h-px w-full bg-outline-variant/30"></div>
+
+        <!-- Let's Talk -->
         <div class="space-y-4">
           <h2 class="font-headline font-black text-on-surface text-2xl leading-tight">Let&#39;s Talk.</h2>
           <div>
-            <p class="font-body text-sm text-on-surface font-semibold">15 Years &mdash;</p>
-            <p class="font-body text-sm text-on-surface-variant leading-snug">Bringing enterprise rigor &amp; brand
-              emotion.<br />Available for new opportunities.</p>
+            <p class="font-body text-sm text-on-surface-variant leading-snug">
+              Bringing Enterprise Rigor <br> &amp; Brand Emotion.<br />
+            </p>
           </div>
           <div class="flex flex-col gap-4 pt-1">
             <a href="tel:+17026084065" class="flex items-center gap-4 group">
@@ -207,7 +206,7 @@
               <span
                 class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors">Mobile</span>
             </a>
-            <a href="/cdn-cgi/l/email-protection#1d6f7270787171785d6f70712e2b2d337e7270"
+            <a href="/cdn-cgi/l/email-protection#691b06040c05050c291b04055a5f59470a0604"
               class="flex items-center gap-4 group">
               <span
                 class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-xl">send</span>
@@ -227,15 +226,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Schedule CTA -->
-      <a href="https://calendly.com/romelle-rml360/30min">
-        <button
-          class="w-full py-4 border border-primary text-primary font-headline font-bold text-sm uppercase tracking-tighter rounded-full relative overflow-hidden group btn-fill-hover">
-          <span class="absolute inset-0 bg-primary btn-fill z-0"></span>
-          <span class="relative z-10 group-hover:text-on-primary transition-colors duration-300">Schedule a Chat</span>
-        </button>
-      </a>
     </nav>
   </div>
 
@@ -495,8 +485,6 @@
           <h2 class="font-headline text-3xl md:text-5xl font-bold tracking-tight">
             Ready to build something <span class="text-primary">extraordinary</span>?
           </h2>
-          <p>Currently accepting select commissions. Focused on high-impact digital experiences that blend precision
-            with cinematic atmosphere.</p>
           <a href="https://calendly.com/romelle-rml360/30min"
             class="inline-block text-center px-8 py-4 border border-primary text-primary font-headline font-bold text-base uppercase tracking-widest rounded-full relative overflow-hidden group btn-fill-hover">
             <span class="absolute inset-0 bg-primary btn-fill z-0"></span>
