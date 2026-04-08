@@ -2,7 +2,10 @@
    styles.css — Romelle Domingo Portfolio
    Shared across: index, about, work, case-dell, case-monster, case-reign
    ============================================================ */
-
+h1,
+p {
+  text-wrap: balance;
+}
 .debug {
   outline: 2px dotted yellow;
   background-color: rgba(255, 0, 0, 0.5);
@@ -262,16 +265,26 @@
 .scroll-reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.65s cubic-bezier(0.19, 1, 0.22, 1),
-              transform 0.65s cubic-bezier(0.19, 1, 0.22, 1);
+  transition:
+    opacity 0.65s cubic-bezier(0.19, 1, 0.22, 1),
+    transform 0.65s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .scroll-reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
-.scroll-reveal.sr-delay-1 { transition-delay: 0.12s; }
-.scroll-reveal.sr-delay-2 { transition-delay: 0.24s; }
+.scroll-reveal.sr-delay-1 {
+  transition-delay: 0.12s;
+}
+.scroll-reveal.sr-delay-2 {
+  transition-delay: 0.24s;
+}
 
 /* Hide scrollbar — film strip */
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
