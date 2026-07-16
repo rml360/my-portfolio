@@ -1,1044 +1,401 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Romelle Domingo — UX / Product Designer</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=26" />
-<script>
-  // Apply saved color theme before paint to avoid a flash.
-  (function () {
-  })();
-  // Apply entrance animations only when the document is actually visible,
-  // so a hidden/screenshot load shows content instead of pre-animation opacity:0.
-  (function () {
-    function enable() {
-      if (document.visibilityState === 'visible') {
-        document.documentElement.classList.add('can-animate');
-        document.removeEventListener('visibilitychange', enable);
-      }
-    }
-    enable();
-    document.addEventListener('visibilitychange', enable);
-  })();
-</script>
-<script>
-  // ===================== TWEAKS — expressive design controls =====================
-  // Persisted defaults (host rewrites this JSON block on disk).
-  window.__TWEAKS = /*EDITMODE-BEGIN*/{
-    "mode": "dark",
-    "accent": "signal",
-    "density": "comfortable",
-    "shape": "soft"
-  }/*EDITMODE-END*/;
-  (function () {
-    // Accent identity: [base, deep, "r,g,b"]
-    var ACCENTS = {
-      signal: ['#F90E78', '#B60053', '249,14,120'],
-      cyan:   ['#18B6FF', '#0072A8', '24,182,255'],
-      green:  ['#00D17A', '#008A50', '0,209,122'],
-      ember:  ['#FF6A1A', '#C2430A', '255,106,26'],
-      violet: ['#8A38F5', '#5E1FB0', '138,56,245']
-    };
-    // Spatial density: vertical-rhythm multiplier
-    var DENS = { compact: 0.6, comfortable: 1, airy: 1.42 };
-    // Form language: corner radii (null = use stylesheet defaults)
-    var SHAPES = {
-      sharp:    { card: '0px',  icon: '3px',  pill: '4px',  media: '2px' },
-      soft:     null,
-      pillowed: { card: '24px', icon: '16px', pill: '50px', media: '20px' }
-    };
-    function ensureStyle() {
-      var s = document.getElementById('tweak-overrides');
-      if (!s) { s = document.createElement('style'); s.id = 'tweak-overrides'; document.head.appendChild(s); }
-      return s;
-    }
-    function apply(t) {
-      t = t || window.__TWEAKS || {};
-      var rs = document.documentElement.style;
-      var a = ACCENTS[t.accent] || ACCENTS.signal;
-      rs.setProperty('--accent', a[0]);
-      rs.setProperty('--accent-deep', a[1]);
-      rs.setProperty('--accent-soft', 'rgba(' + a[2] + ',0.14)');
-      rs.setProperty('--accent-line', 'rgba(' + a[2] + ',0.35)');
-      var d = DENS[t.density] != null ? DENS[t.density] : 1;
-      var css = '';
-      if (d !== 1) {
-        css += '.section-pad{padding-top:' + Math.round(88 * d) + 'px!important;padding-bottom:' + Math.round(88 * d) + 'px!important;}';
-        css += '.cs-section{padding-top:' + Math.round(56 * d) + 'px!important;padding-bottom:' + Math.round(56 * d) + 'px!important;}';
-        css += '.cs-hero{padding-top:' + Math.round(72 * d) + 'px!important;padding-bottom:' + Math.round(56 * d) + 'px!important;}';
-        css += '.feature-grid,.cs-metrics,.cs-points{gap:' + Math.round(20 * d) + 'px!important;}';
-        css += '.work-grid{gap:' + Math.round(24 * d) + 'px!important;}';
-      }
-      var sh = SHAPES[t.shape];
-      if (sh) {
-        css += '.feat-card,.recent,.case-card,.case-featured,.cs-metric,.cs-point,.contact-panel,.cs-tab,.cs-tab-body,.about-portrait,.exp-grid{border-radius:' + sh.card + '!important;}';
-        css += '.feat-ico,.exp-ico{border-radius:' + sh.icon + '!important;}';
-        css += '.cs-shot,.cs-shot img,.recent-media{border-radius:' + sh.media + '!important;}';
-        css += '.btn,.chip,.cf-tag{border-radius:' + sh.pill + '!important;}';
-      }
-      ensureStyle().textContent = css;
-    }
-    window.__applyTweaks = apply;
-    // Reconcile saved theme (set via the sidebar toggle) into the tweak state on load.
-    try { var s = localStorage.getItem('rd-theme'); if (s) window.__TWEAKS.mode = s; } catch (e) {}
-    apply(window.__TWEAKS);
-  })();
-</script>
-<style>
-  /* ===================== Tweaks panel ===================== */
-  #tweaks-panel {
-    position: fixed; right: 20px; bottom: 20px; z-index: 9999;
-    width: 296px; max-height: calc(100vh - 40px); overflow-y: auto;
-    background: #020E18; border: 1px solid rgba(240,244,239,0.18); border-radius: 16px;
-    box-shadow: 0 24px 70px rgba(0,0,0,0.55); font-family: 'Lexend', system-ui, sans-serif;
-    color: #F0F4EF; display: none; -webkit-font-smoothing: antialiased;
-  }
-  #tweaks-panel.show { display: block; animation: twIn .28s cubic-bezier(0.16,1,0.3,1); }
-  @keyframes twIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-  .tw-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 18px 14px; border-bottom: 1px solid rgba(240,244,239,0.10); position: sticky; top: 0; background: #020E18; }
-  .tw-title { display: flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 600; letter-spacing: 0.01em; }
-  .tw-title .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent, #F90E78); box-shadow: 0 0 0 4px rgba(249,14,120,0.16); }
-  .tw-close { width: 28px; height: 28px; display: grid; place-items: center; border: none; background: rgba(240,244,239,0.06); color: rgba(240,244,239,0.6); border-radius: 8px; cursor: pointer; font-size: 16px; line-height: 1; transition: all .2s; }
-  .tw-close:hover { background: rgba(240,244,239,0.12); color: #fff; }
-  .tw-body { padding: 6px 18px 20px; }
-  .tw-sec { padding: 16px 0 4px; }
-  .tw-sec + .tw-sec { border-top: 1px solid rgba(240,244,239,0.08); }
-  .tw-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(240,244,239,0.45); margin: 0 0 4px; }
-  .tw-hint { font-size: 12px; color: rgba(240,244,239,0.38); margin: 0 0 14px; line-height: 1.4; font-family: 'IBM Plex Serif', Georgia, serif; font-style: italic; }
-  .tw-swatches { display: flex; gap: 12px; }
-  .tw-sw { width: 38px; height: 38px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; padding: 0; position: relative; transition: transform .2s; outline: none; }
-  .tw-sw:hover { transform: scale(1.08); }
-  .tw-sw.active { border-color: #fff; box-shadow: 0 0 0 3px rgba(255,255,255,0.12); }
-  .tw-seg { display: flex; gap: 6px; background: rgba(240,244,239,0.05); border: 1px solid rgba(240,244,239,0.08); border-radius: 10px; padding: 4px; }
-  .tw-seg button { flex: 1; padding: 9px 6px; border: none; background: none; color: rgba(240,244,239,0.6); font-family: inherit; font-size: 12.5px; font-weight: 500; border-radius: 7px; cursor: pointer; transition: all .22s cubic-bezier(0.16,1,0.3,1); }
-  .tw-seg button:hover { color: #F0F4EF; }
-  .tw-seg button.active { background: var(--accent, #F90E78); color: #fff; box-shadow: 0 4px 14px rgba(0,0,0,0.3); }
-</style>
-</head>
-<body style="background-color: rgb(255, 255, 255); font-size: 14px">
-<div id="root">
-<div class="shell">
+<html class="dark" lang="en">
 
-  <!-- ============================ SIDEBAR ============================ -->
-  <aside class="sidebar">
-    <button class="talk-btn" data-open-contact>
-      <span class="label">LET’S TALK</span>
-      <span class="ico"><i data-icon="arrowRight" data-size="18"></i></span>
-    </button>
-    <div class="side-body">
-      <button class="avatar" data-go="home" aria-label="Home" style="cursor:pointer;padding:0;"><span class="status-dot"></span></button>
-      <div>
-        <h2 class="profile-name">Romelle Domingo</h2>
-        <p class="profile-role">UX / Product Designer</p>
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>RML360 | Product Designer</title>
+  <link rel="icon" type="image/svg+xml" href="/img/svg/favicon.svg">
+
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script async src="https://dijji.com/d.js" data-site="ws_9a6ec4edb399ed1c9f"></script>\
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#3ae97a",
+            "on-primary": "#004f22",
+            "surface": "#0e0e0e",
+            "surface-container-lowest": "#000000",
+            "surface-container-low": "#131313",
+            "surface-container": "#1a1a1a",
+            "surface-container-high": "#20201f",
+            "surface-container-highest": "#262626",
+            "surface-variant": "#262626",
+            "on-surface": "#ffffff",
+            "on-surface-variant": "#adaaaa",
+            "outline-variant": "#484847",
+          },
+          fontFamily: {
+            "headline": ["Plus Jakarta Sans", "sans-serif"],
+            "body": ["Manrope", "sans-serif"],
+            "label": ["Manrope", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px"
+          },
+        },
+      },
+    }
+  </script>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    @media (min-width: 1024px) {
+      #main-content {
+        margin-left: 256px;
+        width: calc(100% - 256px);
+        box-sizing: border-box;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- DESKTOP SIDEBAR -->
+  <aside
+    class="hidden lg:flex flex-col justify-between p-8 z-50 fixed left-0 top-0 h-full w-64 border-r border-outline-variant/20 bg-surface-container-low/80 backdrop-blur-md shadow-[32px_0_32px_rgba(0,0,0,0.06)]">
+    <div class="space-y-12">
+      <div class="space-y-6">
+        <div class="w-20 h-20 rounded-full overflow-hidden ring-2 ring-primary/30">
+          <img src="img/profile.png" alt="Romelle Domingo" class="w-full h-full object-cover object-center" />
+        </div>
+        <div>
+          <h1 class="text-xl font-black text-primary uppercase font-headline">Romelle Domingo</h1>
+          <p class="font-label text-xs uppercase tracking-widest text-on-surface-variant mt-1">UX/Product Designer</p>
+        </div>
       </div>
-      <div class="socials">
-        <a href="mailto:hello@rml360.com" aria-label="Email"><i data-icon="send" data-size="24"></i></a>
-        <a href="tel:+17026084065" aria-label="Phone"><i data-icon="phone" data-size="24"></i></a>
-        <a href="https://linkedin.com/in/somecallmenyce" target="_blank" rel="noopener" aria-label="LinkedIn"><i data-icon="linkedin" data-size="24"></i></a>
-      </div>
-      <div class="side-divider"></div>
-      <nav class="nav">
-        <button class="nav-item active" data-nav="home" data-go="home"><span class="nv-ico"><i data-icon="home" data-size="24"></i></span>Home</button>
-        <button class="nav-item" data-nav="work" data-go="work"><span class="nv-ico"><i data-icon="grid" data-size="24"></i></span>My Work</button>
-        <button class="nav-item" data-nav="about" data-go="about"><span class="nv-ico"><i data-icon="person" data-size="24"></i></span>About Me</button>
+      <nav class="flex flex-col gap-6" aria-label="Primary">
+        <a href="index.html"
+          class="flex items-center gap-3 font-headline font-bold tracking-tight text-sm uppercase text-primary border-r-2 border-primary pr-4 transition-all duration-300">
+          <span class="material-symbols-outlined" style='font-variation-settings:"FILL" 1;'>home</span>Home
+        </a>
+        <a href="Work.html"
+          class="flex items-center gap-3 font-headline font-bold tracking-tight text-sm uppercase text-on-surface-variant hover:text-primary transition-all duration-300">
+          <span class="material-symbols-outlined">grid_view</span>My Work
+        </a>
+        <a href="about.html"
+          class="flex items-center gap-3 font-headline font-bold tracking-tight text-sm uppercase text-on-surface-variant hover:text-primary transition-all duration-300">
+          <span class="material-symbols-outlined">person</span>About Me
+        </a>
       </nav>
-      <div class="side-foot">© 2025 Romelle Domingo<br />Built with <span>Precision</span></div>
+    </div>
+    <!-- Let's Talk Footer -->
+    <div class="space-y-5">
+      <h2 class="font-headline font-black text-on-surface text-3xl leading-tight tracking-tight">
+        Let&#39;s Talk.
+      </h2>
+      <div>
+        <p class="font-body text-md text-on-surface-variant leading-relaxed">
+          Bringing Enterprise Rigor <br> &amp; Brand Emotion.<br />
+        </p>
+      </div>
+      <div class="flex flex-col gap-4 pt-1">
+        <a href="tel:+17026084065 " class="flex items-center gap-4 group transition-all duration-300">
+          <span
+            class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors duration-300 text-xl">phone_android</span>
+          <span
+            class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors duration-300">Mobile</span>
+        </a>
+        <a href="/cdn-cgi/l/email-protection#e5978a8880898980a5978889d6d3d5cb868a88"
+          class="flex items-center gap-4 group transition-all duration-300">
+          <span
+            class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors duration-300 text-xl">send</span>
+          <span
+            class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors duration-300">Email</span>
+        </a>
+        <a href="https://linkedin.com/in/somecallmenyce" target="_blank" rel="noopener"
+          class="flex items-center gap-4 group transition-all duration-300">
+          <svg
+            class="w-5 h-5 text-on-surface-variant group-hover:text-primary transition-colors duration-300 fill-current"
+            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z" />
+          </svg>
+          <span
+            class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors duration-300">LinkedIn</span>
+        </a>
+      </div>
     </div>
   </aside>
 
-  <!-- ======================= MOBILE HEADER + DRAWER ======================= -->
-  <header class="m-header">
-    <button class="m-brand" data-go="home" aria-label="Home">
-      <span class="m-avatar"><span class="m-dot"></span></span>
-      <span class="m-brand-txt"><b>RD//</b>Product Designer</span>
-    </button>
-    <div class="m-actions">
-      <button class="m-talk" data-open-contact>Let’s Talk</button>
-      <button class="m-burger" data-burger aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <!-- MOBILE / TABLET TOPBAR -->
+  <header
+    class="lg:hidden fixed top-0 left-0 w-full z-50 bg-surface-container-high/80 backdrop-blur-xl border-b border-outline-variant/20">
+    <div class="flex justify-between items-center px-6 py-4">
+      <!-- Logo -->
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full overflow-hidden ring-1 ring-primary/30">
+          <a href="index.html"><img src="img/profile.png" alt="Romelle Domingo"
+              class="w-full h-full object-cover object-center" /></a>
+        </div>
+        <span class="text-base font-black text-primary font-headline tracking-tight">RD:Product Designer</span>
+      </div>
+      <!-- Hamburger -->
+      <button id="menu-toggle" aria-label="Open menu"
+        class="w-10 h-10 flex flex-col justify-center items-center gap-[5px] group">
+        <span id="bar1"
+          class="block w-6 h-[2px] bg-on-surface rounded-full transition-all duration-300 origin-center"></span>
+        <span id="bar2" class="block w-6 h-[2px] bg-on-surface rounded-full transition-all duration-300"></span>
+        <span id="bar3"
+          class="block w-4 h-[2px] bg-primary rounded-full transition-all duration-300 origin-center self-end"></span>
+      </button>
     </div>
   </header>
-  <div class="m-scrim" data-scrim></div>
-  <nav class="m-nav">
-    <div class="m-nav-head">
-      <span class="m-avatar lg"><span class="m-dot"></span></span>
-      <div>
-        <div class="m-nav-name">Romelle Domingo</div>
-        <div class="m-nav-role">UX / Product Designer</div>
-      </div>
+
+  <!-- MOBILE DRAWER -->
+  <div id="mobile-drawer" class="lg:hidden fixed inset-0 z-40 pointer-events-none">
+    <!-- Backdrop -->
+    <div id="drawer-backdrop"
+      class="absolute inset-0 bg-surface-container-lowest/80 backdrop-blur-sm opacity-0 transition-opacity duration-300">
     </div>
-    <div class="m-nav-list">
-      <button class="m-nav-item active" data-nav="home" data-go="home"><span class="nv-ico"><i data-icon="home" data-size="24"></i></span>Home</button>
-      <button class="m-nav-item" data-nav="work" data-go="work"><span class="nv-ico"><i data-icon="grid" data-size="24"></i></span>My Work</button>
-      <button class="m-nav-item" data-nav="about" data-go="about"><span class="nv-ico"><i data-icon="person" data-size="24"></i></span>About Me</button>
-    </div>
-    <div class="m-nav-divider"></div>
-    <div class="m-nav-socials">
-      <a href="mailto:hello@rml360.com" aria-label="Email"><i data-icon="send" data-size="24"></i></a>
-      <a href="tel:+17026084065" aria-label="Phone"><i data-icon="phone" data-size="24"></i></a>
-      <a href="https://linkedin.com/in/somecallmenyce" target="_blank" rel="noopener" aria-label="LinkedIn"><i data-icon="linkedin" data-size="24"></i></a>
-    </div>
-    <button class="m-nav-talk" data-open-contact><span>Let’s Talk</span><i data-icon="arrowRight" data-size="18"></i></button>
-  </nav>
+    <!-- Panel -->
+    <nav id="drawer-panel" class="absolute top-0 right-0 h-full w-72 bg-surface-container-low border-l border-outline-variant/20
+                flex flex-col justify-between p-8 pt-24
+                translate-x-full transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]">
 
-  <!-- ============================== MAIN ============================== -->
-  <main class="main scroll">
-
-    <!-- ============================ HOME ============================ -->
-    <section class="view view-root" data-view="home">
-      <section class="hero">
-        <div class="hero-photo show"></div>
-        <div class="hero-veil"></div>
-        <div class="hero-inner stagger">
-          <p class="hero-hi">Hi, I’m <b>Romelle</b></p>
-          <h1>Designing Systems &amp; <br /><span class="accent">Brands People Trust</span></h1>
-          <p class="hero-sub">Bridging the gap between business decision-makers, developers, designers, and users through strategic visual architecture.</p>
-          <div class="hero-rule"></div>
-          <div class="hero-cta">
-            <button class="btn solid" data-go="work"><span>Explore Portfolio<i data-icon="arrowRight" data-size="18"></i></span></button>
-            <button class="btn" data-open-contact><span>Let’s Talk</span></button>
-          </div>
-        </div>
-        <div class="scroll-hint"><span class="bar"></span>Scroll</div>
-      </section>
-
-      <section class="section-pad">
-        <div class="stagger">
-          <p class="eyebrow" style="margin-bottom:28px;">What I Do</p>
-          <div class="feature-grid">
-            <div class="feat-card">
-              <div class="feat-ico"><i data-icon="network" data-size="24"></i></div>
-              <h3>System Level Thinking</h3>
-              <p>Converting complex business logic into intuitive, navigable paths for the user.</p>
-            </div>
-            <div class="feat-card">
-              <div class="feat-ico"><i data-icon="sparkles" data-size="24"></i></div>
-              <h3>Design Leadership</h3>
-              <p>A strategic link between business decision-makers and developers, ensuring visual architecture aligns with functional needs.</p>
-            </div>
-            <div class="feat-card">
-              <div class="feat-ico"><i data-icon="architectureCompass" data-size="24"></i></div>
-              <h3>Design Engineer</h3>
-              <p>Architecting workflows that integrate AI tooling into the core of the product lifecycle.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section-pad" style="padding-top:0;">
-        <div class="stagger">
-          <div class="recent" data-go="case-dell">
-            <div class="recent-body">
-              <p class="eyebrow">Recent Project</p>
-              <h3>Dell Virtual Assistant for Product Configuration</h3>
-              <p>Redesigning the solution orchestration layer for enterprise IT infrastructure — reframing the problem from "improving usability" to restoring trust and confidence under time constraints. The result: a unified workspace that reduced cognitive load, minimized errors, and improved sales efficiency.</p>
-              <button class="btn" style="align-self:flex-start;"><span>View Case Study<i data-icon="arrowRight" data-size="18"></i></span></button>
-            </div>
-            <div class="recent-media">
-              <div class="arrow"><i data-icon="arrowUpRight" data-size="20"></i></div>
-              <div class="art-layer" style="position:absolute;inset:0;"><img src="assets/cover-dell.jpg" alt="Dell enterprise data center" class="art-scale" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" /></div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <!-- ============================ WORK ============================ -->
-    <section class="view view-root section-pad" data-view="work" hidden>
-      <div class="stagger">
-        <div class="center-head">
-          <span class="eyebrow">Selected Work</span>
-          <h2>Case Studies</h2>
-          <p>Enterprise rigor meets brand emotion. A look at how I untangle complex systems and rebuild trust at scale.</p>
+      <!-- Nav links -->
+      <div class="space-y-10">
+        <div class="space-y-6">
+          <a href="index.html"
+            class="flex items-center gap-4 font-headline font-bold text-sm uppercase tracking-widest text-primary">
+            <span class="material-symbols-outlined" style='font-variation-settings:"FILL" 1'>home</span>
+            Home
+          </a>
+          <a href="work.html"
+            class="flex items-center gap-4 font-headline font-bold text-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors duration-300">
+            <span class="material-symbols-outlined">grid_view</span>
+            My Work
+          </a>
+          <a href="about.html"
+            class="flex items-center gap-4 font-headline font-bold text-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors duration-300">
+            <span class="material-symbols-outlined">person</span>
+            About Me
+          </a>
         </div>
 
-        <article class="case-featured" data-go="case-dell">
-          <div class="case-featured-art">
-            <div class="art-layer" style="position:absolute;inset:0;"><img src="assets/cover-dell.jpg" alt="Dell enterprise data center" class="art-scale" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" /></div>
-          </div>
-          <div class="case-featured-body">
-            <div class="cf-tags">
-              <span class="cf-tag" style="font-family: Lexend">Enterprise Transformation</span>
-              <span class="cf-tag ghost" style="font-family: Lexend">Featured Case Study</span>
-            </div>
-            <h3>Restoring Trust in a Mission-Critical Sales System</h3>
-            <p class="cf-desc">A unified, AI-guided configuration workspace that reduced cognitive load, minimized errors, and rebuilt confidence under deadline pressure.</p>
-            <div class="cf-stats">
-              <div class="cf-stat"><div class="cf-big">+11%</div><div class="cf-lbl">CSAT — Trust Restored</div></div>
-              <div class="cf-stat"><div class="cf-big">18%</div><div class="cf-lbl">Faster Configuration</div></div>
-            </div>
-            <div class="cf-foot">
-              <span class="view-link">View Case Study<i data-icon="arrowRight" data-size="16"></i></span>
-              <span class="yr">2021—26</span>
-            </div>
-          </div>
-        </article>
+        <!-- Divider -->
+        <div class="h-px w-full bg-outline-variant/30"></div>
 
-        <div class="work-grid rest">
-          <article class="case-card" data-go="case-monster">
-            <div class="case-art">
-              <div class="art-layer" style="position:absolute;inset:0;"><img src="assets/cover-monster.jpg" alt="Monster Energy surfer" class="art-scale" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" /></div>
-            </div>
-            <div class="case-meta">
-              <p class="case-tag" style="font-size: 13px">Brand &amp; E-Commerce</p>
-              <h3>Monster Energy</h3>
-              <p>Customer-facing commerce and internal sales tooling that balanced bold brand expression with intuitive, measurable interaction design.</p>
-              <div class="case-foot">
-                <span class="view-link">View Case Study<i data-icon="arrowRight" data-size="16"></i></span>
-                <span class="yr">2016—20</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="case-card" data-go="case-reign">
-            <div class="case-art">
-              <div class="art-layer" style="position:absolute;inset:0;"><img src="assets/cover-reign.jpg" alt="Reign Total Body Fuel" class="art-scale" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" /></div>
-            </div>
-            <div class="case-meta">
-              <p class="case-tag" style="font-size: 13px">Product Launch</p>
-              <h3>Reign Total Body Fuel</h3>
-              <p>A high-energy digital identity and product experience built to introduce Reign to a performance-driven audience at scale.</p>
-              <div class="case-foot">
-                <span class="view-link">View Case Study<i data-icon="arrowRight" data-size="16"></i></span>
-                <span class="yr">2019</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================ ABOUT ============================ -->
-    <section class="view view-root section-pad" data-view="about" hidden>
-      <div class="stagger">
-        <div class="about-hero">
+        <!-- Let's Talk -->
+        <div class="space-y-4">
+          <h2 class="font-headline font-black text-on-surface text-2xl leading-tight">Let&#39;s Talk.</h2>
           <div>
-            <span class="eyebrow">Profile</span>
-            <h1>UX / Product Designer.<br /><span style="color:#ffffff;">Systems Thinker.</span> Trust Builder.</h1>
-            <p class="about-bio">I specialize in untangling complex enterprise data and transforming it into intuitive, scalable product ecosystems. While I’ve spent recent years architecting intelligent workflows at Dell, my true passion lies in the intersection of deep technical constraints and elegant, user-centric interfaces. I am a firm believer in the power of robust design systems, data-driven design, and cross-functional harmony — yes, designers and engineers can actually be best friends.</p>
-            <span class="about-loc"><i data-icon="pin" data-size="24"></i>Based in Los Angeles, CA</span>
+            <p class="font-body text-md text-on-surface-variant leading-relaxed">
+              Bringing Enterprise Rigor <br> &amp; Brand Emotion.<br />
+            </p>
           </div>
-          <div class="about-portrait"></div>
-        </div>
-
-        <div>
-          <div class="label-row" style="margin-top:16px;"><h2 style="font-size:22px;font-weight:600;color:var(--ink-bright);">Recent Achievements</h2><span class="ln"></span></div>
-          <div class="stats-strip">
-            <div class="stat">
-              <div class="num"><span class="u pre">$</span><span class="num-val" data-target="1.2">1.2</span><span class="u">M</span></div>
-              <div class="lbl">Estimated annual operational savings for early-adopter clients.</div>
-            </div>
-            <div class="stat">
-              <div class="num"><span class="u pre">+</span><span class="num-val" data-target="11">11</span><span class="u">%</span></div>
-              <div class="lbl">Increase in CSAT — trust restored through usability &amp; reliability.</div>
-            </div>
-            <div class="stat">
-              <div class="num"><span class="num-val" data-target="35">35</span><span class="u">%</span></div>
-              <div class="lbl">Reduction in configuration errors via intelligent automation.</div>
-            </div>
-            <div class="stat">
-              <div class="num"><span class="num-val" data-target="18">18</span><span class="u">%</span></div>
-              <div class="lbl">Faster time-on-task configuring complex IT solutions.</div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="label-row" style="margin-top:24px;"><h2 style="font-size:22px;font-weight:600;color:var(--ink-bright);">Core Expertise</h2><span class="ln"></span></div>
-          <div class="exp-grid">
-            <div class="exp-item">
-              <div class="exp-ico"><i data-icon="architecture" data-size="24"></i></div>
-              <h3>Enterprise Platform Design (AI-Guided)</h3>
-              <p>Deconstructing complex workflows into manageable, intuitive interfaces for global-scale applications — transforming traditional configuration into intelligent, AI-guided experiences that feel trustworthy.</p>
-            </div>
-            <div class="exp-item">
-              <div class="exp-ico"><i data-icon="science" data-size="24"></i></div>
-              <h3>UX Research &amp; Synthesis</h3>
-              <p>Deep-dive qualitative research that translates into data-driven design solutions, actionable product strategy, and clear design roadmaps.</p>
-            </div>
-            <div class="exp-item">
-              <div class="exp-ico"><i data-icon="groups" data-size="24"></i></div>
-              <h3>Cross-Functional Leadership</h3>
-              <p>Partnering with Product and Engineering leadership to shape roadmap and platform strategy, aligning user needs with technical and business constraints.</p>
-            </div>
-            <div class="exp-item">
-              <div class="exp-ico"><i data-icon="designServices" data-size="24"></i></div>
-              <h3>Design System Architecture</h3>
-              <p>Building and maintaining robust, multi-platform components, scalable pattern libraries, and comprehensive design systems that accelerate development efficiency.</p>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="label-row" style="margin-top:24px;">
-            <h2 style="font-size:22px;font-weight:600;color:var(--ink-bright);">Professional Experience</h2>
-            <span class="ln"></span>
-            <a class="btn" href="https://www.rml360.com/Resume_2026.pdf" target="_blank" rel="noopener" style="flex:0 0 auto;"><span>Download Resume<i data-icon="download" data-size="17"></i></span></a>
-          </div>
-          <div class="timeline">
-            <div class="tl-row active">
-              <div class="tl-job r"><h3>Principal Product Designer</h3><p class="tl-co">Dell Technologies</p><p>Led design strategy for AI-powered configuration and transactional workflows, enabling enterprise users to move from product selection to validated purchase decisions with greater accuracy and confidence.</p></div>
-              <div class="tl-center"><span class="tl-line"></span><span class="tl-dot"></span></div>
-              <div class="tl-year active">2021 — 2026</div>
-            </div>
-            <div class="tl-row">
-              <div class="tl-year r">2019 — 2020</div>
-              <div class="tl-center"><span class="tl-line"></span><span class="tl-dot"></span></div>
-              <div class="tl-job l"><h3>Senior Staff UX/UI Designer</h3><p class="tl-co">Monster Energy</p><p>Directed the digital brand experience for product e-commerce platforms and internal sales tools, diplomatically aligning marketing, sales, and engineering initiatives toward customer-centered outcomes.</p></div>
-            </div>
-            <div class="tl-row">
-              <div class="tl-job r"><h3>Staff UX/UI Designer</h3><p class="tl-co">Monster Energy</p><p>Designed and shipped customer-facing digital experiences across multiple brand families, balancing visual design with intuitive interaction patterns to drive measurable user engagement and brand stickiness.</p></div>
-              <div class="tl-center"><span class="tl-line"></span><span class="tl-dot"></span></div>
-              <div class="tl-year">2016 — 2019</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="closing">
-          <span class="eyebrow">Let’s Build</span>
-          <h2>Ready to build something extraordinary?</h2>
-          <div style="display:flex;gap:14px;justify-content:center;">
-            <a class="btn solid" href="https://calendly.com/romelle-rml360/30min" target="_blank" rel="noopener"><span><i data-icon="calendar" data-size="17"></i>Schedule a Chat</span></a>
-            <button class="btn" data-open-contact><span>Contact</span></button>
+          <div class="flex flex-col gap-4 pt-1">
+            <a href="tel:+17026084065" class="flex items-center gap-4 group">
+              <span
+                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-xl">phone_android</span>
+              <span
+                class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors">Mobile</span>
+            </a>
+            <a href="/cdn-cgi/l/email-protection#691b06040c05050c291b04055a5f59470a0604"
+              class="flex items-center gap-4 group">
+              <span
+                class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-xl">send</span>
+              <span
+                class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors">Email</span>
+            </a>
+            <a href="https://linkedin.com/in/somecallmenyce" target="_blank" rel="noopener"
+              class="flex items-center gap-4 group">
+              <svg class="w-5 h-5 fill-current text-on-surface-variant group-hover:text-primary transition-colors"
+                viewBox="0 0 24 24">
+                <path
+                  d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z" />
+              </svg>
+              <span
+                class="font-label text-xs font-bold uppercase text-on-surface-variant group-hover:text-primary transition-colors">LinkedIn</span>
+            </a>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- ======================= CASE STUDY · DELL ======================= -->
-    <section class="view view-root" data-view="case-dell" hidden>
-      <div class="cs-top">
-        <div class="cs-top-inner">
-          <button class="cs-back" data-go="work"><i data-icon="arrowLeft" data-size="16"></i>All Projects</button>
-          <span class="cs-label" style="font-size: 14px; letter-spacing: 0px">Dell Technologies</span>
-        </div>
-      </div>
-      <div class="cs-shell">
-        <aside class="cs-rail">
-          <div class="cs-rail-brand">
-            <div class="cs-badge"><img src="assets/dell-logo.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" /></div>
-            <p class="cs-badge-label">Case Study</p>
-            <p class="cs-badge-name">Dell Technologies</p>
-          </div>
-          <nav class="cs-spy">
-            <button class="cs-spy-item active" data-spy="sec-overview"><span class="cs-spy-dot"></span><span>Overview</span></button>
-            <button class="cs-spy-item" data-spy="sec-process"><span class="cs-spy-dot"></span><span>Process</span></button>
-            <button class="cs-spy-item" data-spy="sec-solution"><span class="cs-spy-dot"></span><span>Solution</span></button>
-            <button class="cs-spy-item" data-spy="sec-impact"><span class="cs-spy-dot"></span><span>Impact</span></button>
-            <button class="cs-spy-item" data-spy="sec-retrospective"><span class="cs-spy-dot"></span><span>Retrospective</span></button>
-          </nav>
-        </aside>
-        <div class="cs-main">
-
-          <div class="cs-hero stagger">
-            <span class="chip"><i data-icon="layers" data-size="14"></i>Enterprise Transformation</span>
-            <h1>Dell Technologies: Restoring Trust in a Mission-Critical Sales System</h1>
-            <div class="cs-facts">
-              <div class="cs-fact"><p class="k" style="color: rgb(249, 14, 120)">Role</p><p class="v">Lead Product Designer</p></div>
-              <div class="cs-fact"><p class="k" style="color: rgb(249, 14, 120)">Timeline</p><p class="v">8 Months</p></div>
-              <div class="cs-fact"><p class="k" style="color: rgb(249, 14, 120)">Deliverables</p><p class="v">Solution Dashboard, AI-Guided Order Management System</p></div>
-            </div>
-          </div>
-
-          <div class="cs-section" id="sec-overview">
-            <p class="eyebrow" style="margin-bottom: 16px; font-weight: 700">Summary</p>
-            <p class="cs-lead">Dell sales agents configure complex IT infrastructure under tight deadlines, where errors directly impact revenue and customer trust. Over time the legacy sales ecosystem became fragmented, dense, and reactive — eroding confidence and stalling CSAT at 72%. I led the end-to-end redesign of the configuration experience, reframing the problem from "improving usability" to restoring trust and confidence under time constraints.</p>
-            <figure class="cs-shot" style="margin-top:32px;">
-              <img src="assets/dell-config-screen.jpg?v=2" alt="Dell ISG solution configuration interface" />
-              <figcaption class="cs-shot-cap">
-                <div class="cs-shot-title">The Next-Gen IT Product Configurator</div>
-                <div class="cs-shot-sub">Unified product configurator with an AI collaboration assistant.</div>
-              </figcaption>
-            </figure>
-            <div class="cs-section-inner">
-              <div class="cs-metrics" style="margin-top:20px;grid-template-columns:repeat(2,1fr);">
-                <div class="cs-metric">
-                  <div class="feat-ico" style="margin-bottom:16px;"><i data-icon="bolt" data-size="24"></i></div>
-                  <div class="big">18%</div>
-                  <h4>Faster</h4>
-                  <p>Decrease in time spent configuring complex server solutions across IT infrastructure.</p>
-                </div>
-                <div class="cs-metric">
-                  <div class="feat-ico" style="margin-bottom:16px;"><i data-icon="shield" data-size="24"></i></div>
-                  <div class="big">+11%</div>
-                  <h4>Restored Trust</h4>
-                  <p>Increase in CSAT score — trust restored through improved usability and reliability.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="cs-section" id="sec-process">
-            <h2>The Problem: Erosion of Trust</h2>
-            <p class="cs-lead">Sales agents relied on fragmented legacy tools to configure complex solutions, forcing constant context switching and reactive error handling.</p>
-            <p class="cs-body">In high-stakes environments, this friction eroded trust in the system’s ability to produce viable outcomes. As confidence declined, users turned to manual workarounds and personal validation, increasing inefficiency and risk. With CSAT stalled at 72%, it became clear the problem extended beyond usability to systemic trust.</p>
-          </div>
-
-          <div class="cs-section" id="sec-discovery" data-tabs>
-            <p class="eyebrow" style="margin-bottom:16px;">Process</p>
-            <h2>Discovery: Understanding Confidence Under Pressure</h2>
-            <p class="cs-lead" style="margin-bottom:28px;">Rather than auditing screens in isolation, I focused on how agents actually worked.</p>
-            <div class="cs-tabs">
-              <button class="cs-tab active">Pain Points</button>
-              <button class="cs-tab">Cognitive Load</button>
-              <button class="cs-tab">Contextual Interviews</button>
-              <button class="cs-tab">Value Stream Mapping</button>
-            </div>
-
-            <div class="cs-tab-body" data-tab-panel>
-              <figure class="cs-diagram"><img src="assets/dell-double-diamond.png" alt="Double Diamond design process diagram — Discover (Research / Insights) and Framing (Ideate / Prototype) phases." /></figure>
-              <h3 class="cs-tab-title">Pain Points</h3>
-              <p class="cs-lead" style="margin-bottom:28px;">The issue wasn’t just about usability (the assumed problem). It was confidence, due to:</p>
-              <div class="cs-points">
-                <div class="cs-point"><div class="n">Reactive Error Handling</div><h4>Late Validation</h4><p>Errors surfaced late and required manual resolution — often 10–15 minutes per issue.</p></div>
-                <div class="cs-point"><div class="n">Data Paralysis</div><h4>High Density</h4><p>Information density was high, but actionable insight was dangerously low.</p></div>
-                <div class="cs-point"><div class="n">Fragmented Workflow</div><h4>Tool Switching</h4><p>Agents switched across platforms to complete a single configuration, increasing risk of data loss and fatigue.</p></div>
-              </div>
-              <blockquote class="cs-quote" style="margin-top:28px;"><p>“I know how to work around the errors and get them fixed, because I’ve done it so many times. But for new sales users, the learning curve is steep.”</p><cite>— Dell Sales Partner, Fortune 500 Client</cite></blockquote>
-            </div>
-
-            <div class="cs-tab-body" data-tab-panel hidden>
-              <h3 class="cs-tab-title">Cognitive Load</h3>
-              <p class="cs-lead" style="margin-bottom:28px;">Our Cognitive Load Index (CLI) ranges 1–100; scores above 75 indicate excessive mental strain. The legacy experience scored 87.4. By simplifying decision paths and aligning interactions with real workflows, we drove it down to 54.4 — a 37% reduction, moving from the frustration zone into the productive range.</p>
-              <div class="cs-cli">
-                <div class="cs-cli-card bad"><div class="v">87.4</div><div class="l">CLI · Legacy</div></div>
-                <div class="cs-cli-card mid"><div class="v">76.8</div><div class="l">CLI · Configurator v1</div></div>
-                <div class="cs-cli-card good"><div class="v">54.4</div><div class="l">CLI · After Redesign</div></div>
-              </div>
-              <div class="cs-callout" style="padding: 20px 44px">
-                <i data-icon="trendDown" data-size="22"></i>
-                <div class="cs-callout-text"><span class="cs-callout-stat" style="font-size: 36px">37% reduction</span> in cognitive load —<br />from frustration zone (84+) to productive range (54).</div>
-              </div>
-              <div class="cs-points" style="grid-template-columns:repeat(2,1fr);margin-top:32px;">
-                <div class="cs-point"><div class="n">Attention Fragmentation</div><p>Heat maps showed user gaze spreading uniformly across pages — no clear focal hierarchy guiding next actions.</p></div>
-                <div class="cs-point"><div class="n">Decision Fatigue</div><p>Users encountered an average of 47 decision points per configuration session, most of which were unnecessary.</p></div>
-                <div class="cs-point"><div class="n">Error Recovery Cost</div><p>Resolving a single validation error required users to scroll away from their context, breaking flow and compounding confusion.</p></div>
-                <div class="cs-point"><div class="n">18% Time-on-Task Reduction</div><p>Post-redesign usability sessions showed measurable improvement in task completion speed and first-attempt success rate.</p></div>
-              </div>
-            </div>
-
-            <div class="cs-tab-body" data-tab-panel hidden>
-              <h3 class="cs-tab-title">Contextual Interviews &amp; Service Mapping</h3>
-              <p class="cs-lead" style="margin-bottom:36px;max-width:900px;">Through job shadowing, I conducted in-context observational research to understand how Dell agents and partners work in real-world conditions. Insights from these sessions were synthesized into a living research artifact that mapped pain points, behaviors, and unmet needs — helping product and engineering teams stay grounded in user reality as design and development evolved.</p>
-              <h4 class="cs-subhead">Observation: Configuration Pains</h4>
-              <div class="cs-points">
-                <div class="cs-point"><h4>Discoverability</h4><p>Dense information, unclear hierarchy, and competing signals overwhelm users while browsing the product catalog, making it difficult to form mental models.</p></div>
-                <div class="cs-point"><h4>Navigation</h4><p>Product catalog selection lacks clear entry points and progressive disclosure, forcing users to rely on trial-and-error rather than confident navigation.</p></div>
-                <div class="cs-point"><h4>Redundancy</h4><p>Users are required to repeat the same actions across steps, increasing friction, fatigue, and the likelihood of mistakes.</p></div>
-              </div>
-              <h4 class="cs-subhead" style="margin-top:48px;">Service Blueprint: A Fragmented Configure Step</h4>
-              <p class="cs-lead" style="margin-bottom:26px;max-width:900px;">Mapping the configure journey across both app tracks exposed why confidence eroded — users pass through a dense chain of overlapping configurators and integrations, several flagged as friction points, long before a quote is ever produced.</p>
-              <figure class="cs-flow-fig">
-                <div class="cs-flow-scroll"><img src="assets/dell-config-flow.png" alt="Service blueprint of the Dell configure step: two app tracks (Dell Solution App for sellers and Dell Sales App for customers) each pass through several configurators and integrations — with friction points flagged — before converging on quote, order, and ship." /></div>
-                <figcaption>Configure-step service blueprint — fragmented tooling across the seller and customer tracks. Scroll to explore →</figcaption>
-              </figure>
-            </div>
-
-            <div class="cs-tab-body" data-tab-panel hidden>
-              <h3 class="cs-tab-title">Value Stream Mapping</h3>
-              <p class="cs-lead" style="margin-bottom:22px;max-width:900px;">By producing a value stream map I was able to visualize an end-to-end overview of the complex workflows, enabling teams and stakeholders to identify non-value-added time (waste), reduce bottlenecks, and speed up delivery. By mapping current and future states, VSM enhances collaboration across departments, improves process efficiency, and fosters a data-driven culture of continuous improvement.</p>
-              <p class="cs-list-label">Most time-consuming actions:</p>
-              <ul class="cs-list" style="display:grid;grid-template-columns:1fr 1fr;gap:6px 32px;">
-                <li>Component selection</li>
-                <li>System Performance</li>
-                <li>Unclear Error Resolution</li>
-                <li>User Collaboration</li>
-                <li>Context switching between various tools</li>
-                <li>Number of Validation errors to resolve</li>
-              </ul>
-              <h4 class="cs-subhead" style="margin-top:48px;">Detours</h4>
-              <p class="cs-lead" style="margin-bottom:28px;max-width:900px;">Here is an example of how validation errors can affect users’ time on task which translates to lost sales.</p>
-              <p class="cs-list-label" style="margin-bottom:4px;">Example Problem</p>
-              <blockquote class="cs-quote"><p>“When configuring complex IT infrastructure solutions, compounding capability issues and unclear error resolution slows me down.”</p></blockquote>
-              <p class="cs-lead" style="margin-bottom:22px;max-width:900px;">To solve this the user must scroll to view errors, which takes focus away from configuration. Then try to make sense of the error and resolve with personal product knowledge or raise a support ticket. This back and forth viewing errors and making the correct selections can take an average of 10–15 min.</p>
-              <!-- Time on Task callout block -->
-              <div style="background:var(--bg-elev);border:1px solid var(--line-strong);border-radius:14px;padding:36px 44px;margin:28px 0 32px;display:flex;align-items:center;gap:40px;">
-                <div style="flex-shrink:0;text-align:center;min-width:160px;">
-                  <div style="font-family:var(--font-display);font-size:clamp(64px,6vw,88px);font-weight:800;letter-spacing:-0.04em;line-height:1;color:var(--ink-bright);">10<span style="font-size:0.42em;font-weight:700;color:var(--ink-dim);letter-spacing:-0.01em;">min</span></div>
-                  <div style="font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-dim);margin-top:8px;">Time on Task</div>
-                </div>
-                <div style="border-left:3px solid var(--accent);padding:18px 24px;background:var(--bg-elev-2);border-radius:0 8px 8px 0;flex:1;">
-                  <p style="margin:0;font-family:var(--font-serif);font-size:17px;line-height:1.65;color:var(--ink);">What appears to be a minor task is repeated 10–20 times daily, across dozens of quotes and multiple sales representatives, scaling into significant productivity loss and hours of avoidable operational overhead for even small changes.</p>
-                </div>
-              </div>
-              <div class="cs-cli" style="margin-bottom:32px;">
-                <div class="cs-cli-card"><div class="v" style="color:var(--accent);">10–20×</div><div class="l">Daily Repetitions</div></div>
-                <div class="cs-cli-card"><div class="v" style="color:var(--accent);">1,000+</div><div class="l">Sales Reps Affected</div></div>
-                <div class="cs-cli-card"><div class="v" style="color:var(--accent);">$26K</div><div class="l">Daily Cost Estimate</div></div>
-              </div>
-              <div class="cs-table-wrap">
-                <table class="cs-table">
-                  <thead>
-                    <tr><th>Number of Users</th><th>Number of Iterations</th><th class="num">Cost to Dell*</th><th class="num"></th></tr>
-                  </thead>
-                  <tbody>
-                    <tr><td>1</td><td>1</td><td class="num">$1.34 USD</td><td class="num rate"></td></tr>
-                    <tr><td>1</td><td>20</td><td class="num">$26.81 USD</td><td class="num rate"></td></tr>
-                    <tr><td>1,000</td><td>20</td><td class="num">$26,808 USD</td><td class="num rate">$148.94 / second</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <div class="cs-section" id="sec-solution">
-            <h2>A Strategic Reframe: The Unified Solution</h2>
-            <p class="cs-lead" style="margin-bottom:32px;">Originally positioned as a next-generation configurator redesign, research reframed the opportunity: design a unified, intelligent workspace that supports confident decision-making in complex, high-pressure environments. This shifted focus from interface cleanup to workflow orchestration, error prevention, and system transparency.</p>
-            <figure class="cs-video-fig">
-              <div class="cs-video-frame">
-                <video src="assets/dell-prototype.mp4" controls loop playsinline preload="metadata"></video>
-                <button type="button" class="cs-video-expand" title="View fullscreen" data-video-fullscreen><i data-icon="expand" data-size="18"></i>Fullscreen</button>
-              </div>
-              <figcaption>Prototype walkthrough of the unified configurator.</figcaption>
-            </figure>
-            <div class="cs-points" style="grid-template-columns:repeat(2,1fr);">
-              <div class="cs-point" style="padding:32px 30px;"><div class="n" style="font-size:28px;font-weight:700;font-family:var(--font-display);color:var(--accent);">01</div><h4 style="font-size:19px;margin-top:8px;">Unified Product Configurator</h4><p>A single experience for exploring, comparing, and configuring products and services — with proactive error prevention and intelligent guidance.</p></div>
-              <div class="cs-point" style="padding:32px 30px;"><div class="n" style="font-size:28px;font-weight:700;font-family:var(--font-display);color:var(--accent);">02</div><h4 style="font-size:19px;margin-top:8px;">Intelligent Automation</h4><p>An AI-powered collaboration assistant providing real-time, contextual guidance and automating routine tasks — preventing errors before they occur.</p></div>
-            </div>
-            <figure class="cs-shot" style="margin-top:28px;"><img src="assets/dell-aicpq.png" alt="AI-guided CPQ interface: a PowerEdge R760 configuration summary with chassis, processor, memory, storage, and power specs beside a Virtual Assistant panel that found the product, validated modules, verified OS compatibility, and calculated pricing." /></figure>
-          </div>
-
-          <div class="cs-section" id="sec-impact">
-            <h2>Real-World Impact</h2>
-            <div class="cs-metrics" style="margin-top:24px;">
-              <div class="cs-metric"><div class="big">35%</div><h4>Fewer Errors</h4><p>Reduction in technical sales support tickets related to configuration errors, using intelligent automation.</p></div>
-              <div class="cs-metric"><div class="big">$1.2M</div><h4>Annual Savings</h4><p>Estimated operational cost savings for early-adopter clients.</p></div>
-              <div class="cs-metric"><div class="big">+11%</div><h4>CSAT Increase</h4><p>Elimination of configuration-related complaints and improved user satisfaction.</p></div>
-            </div>
-          </div>
-
-          <div class="cs-section" id="sec-retrospective">
-            <h2>Lessons Learned</h2>
-            <div class="cs-points" style="grid-template-columns:repeat(3,1fr);margin-top:24px;">
-              <div class="cs-point" style="padding:30px 28px;"><div class="feat-ico" style="margin-bottom:16px;"><i data-icon="eye" data-size="24"></i></div><h4 style="font-size:18px;">Visualizing Complexity as Clarity</h4><p>Managing enterprise infrastructure isn’t about hiding complexity, but organizing it. Shifting from manual validation to AI-guided intelligence lets users focus on intent.</p></div>
-              <div class="cs-point" style="padding:30px 28px;"><div class="feat-ico" style="margin-bottom:16px;"><i data-icon="groups" data-size="24"></i></div><h4 style="font-size:18px;">The Value of Embedded Design</h4><p>The research phase proved that "designing for" differs from "designing with." Witnessing partners’ incompatibility issues gave insight no survey could capture.</p></div>
-              <div class="cs-point" style="padding:30px 28px;"><div class="feat-ico" style="margin-bottom:16px;"><i data-icon="sync" data-size="24"></i></div><h4 style="font-size:18px;">Incremental Evolution vs. Total Refactor</h4><p>Enterprise sales tools operate within complex ecosystems — front-end decisions must align tightly with backend constraints and data integrity.</p></div>
-            </div>
-          </div>
-
-          <div class="cs-next">
-            <div><div class="lbl">Next Project</div><div class="nm">Monster Energy</div></div>
-            <button class="btn solid" data-go="case-monster"><span>Continue<i data-icon="arrowRight" data-size="18"></i></span></button>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================== CASE STUDY · MONSTER ====================== -->
-    <section class="view view-root" data-view="case-monster" hidden>
-      <div class="cs-top">
-        <div class="cs-top-inner">
-          <button class="cs-back" data-go="work"><i data-icon="arrowLeft" data-size="16"></i>All Projects</button>
-          <span class="cs-label">Monster Energy</span>
-        </div>
-      </div>
-      <div class="cs-shell">
-        <aside class="cs-rail">
-          <div class="cs-rail-brand">
-            <div class="cs-badge"><img src="assets/monster-claw.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" /></div>
-            <p class="cs-badge-label">Case Study</p>
-            <p class="cs-badge-name">Monster Energy</p>
-          </div>
-          <nav class="cs-spy">
-            <button class="cs-spy-item active" data-spy="sec-overview"><span class="cs-spy-dot"></span><span>Overview</span></button>
-            <button class="cs-spy-item" data-spy="sec-process"><span class="cs-spy-dot"></span><span>Process</span></button>
-            <button class="cs-spy-item" data-spy="sec-solution"><span class="cs-spy-dot"></span><span>Solution</span></button>
-            <button class="cs-spy-item" data-spy="sec-impact"><span class="cs-spy-dot"></span><span>Impact</span></button>
-            <button class="cs-spy-item" data-spy="sec-retrospective"><span class="cs-spy-dot"></span><span>Retrospective</span></button>
-          </nav>
-        </aside>
-        <div class="cs-main">
-
-          <div class="cs-hero stagger">
-            <span class="chip"><i data-icon="smartphone" data-size="14"></i>Athlete Development Mobile App</span>
-            <h1>UNLEASH THE BEAST</h1>
-            <div class="cs-facts four">
-              <div class="cs-fact"><p class="k">Role</p><p class="v">Product Designer</p></div>
-              <div class="cs-fact"><p class="k">Timeline</p><p class="v">6 Months</p></div>
-              <div class="cs-fact"><p class="k">Deliverables</p><p class="v">Web Application</p></div>
-              <div class="cs-fact"><p class="k">Team</p><p class="v">Designer, 2 engineers, Digital Marketing Manager</p></div>
-            </div>
-            <figure class="cs-shot ms-hero-shot"><img src="assets/monster-army-app.jpg" alt="An athlete holding a phone showing the Monster Army app outdoors, beside a graphic-wrapped board." /></figure>
-          </div>
-
-          <div class="cs-section" id="sec-overview">
-            <p class="eyebrow" style="margin-bottom:14px;">Overview</p>
-            <h2>Brand Loyalty Crisis</h2>
-            <p class="cs-body">Monster Army is Monster Energy's elite action sports program — a global network of athletes ages 13–21 competing in BMX, Mountain Biking, Motocross, Surfing, Skateboarding, and Freeski. The program promises cash prizes, gear sponsorship, and competitive exposure. Athlete signups had been declining ~15% year-over-year and first-year retention was eroding. The app — the primary touchpoint between Monster and its athletes — was failing at its one job: making athletes feel valued and supported.</p>
-            <hr class="ms-rule accent" />
-            <div class="ms-cols" style="grid-template-columns:repeat(3,1fr);">
-              <div class="ms-col"><h4>Payout delays destroying trust</h4><p>Athletes won races and waited 4–6 weeks with zero visibility. The claim process was email-based and manual. No status. No confirmation. Just silence.</p></div>
-              <div class="ms-col"><h4>Fragmented Information Architecture</h4><p>Core actions — applying to events, submitting results, claiming prizes — required 7+ taps to reach. First-time athletes had no clear next step after signing up.</p></div>
-              <div class="ms-col"><h4>Desktop-first on a mobile-first audience</h4><p>Most athletes used the app at events: outdoors, under glare, wearing gear, under time pressure. The interface was built for a desk, not a skate park.</p></div>
-            </div>
-            <div style="margin-top:36px;">
-              <div class="cs-callout"><p class="lbl" style="font-size: 13px; font-weight: 700; letter-spacing: 1px">Design Challenge</p><p class="txt" style="font-size: 20px">How do you rebuild athlete trust through product design when the trust gap is both operational (slow payouts) and experiential (confusing UX) — and you can't change the payout operations?</p></div>
-            </div>
-          </div>
-
-          <div class="cs-section" id="sec-process">
-            <p class="eyebrow" style="margin-bottom:14px;">Design Process</p>
-            <h2>Discover. Define. Design. Validate.</h2>
-            <p class="cs-body">I started with support ticket analysis and drop-off data, then ran contextual sessions with 8 athletes across 3 sports — observing how they used the app in the field: parking lots, event venues, training facilities.</p>
-            <div style="margin-top:28px;">
-              <div class="cs-callout"><p class="lbl" style="font-size: 13px; font-weight: 700; letter-spacing: 0px">Key Insight</p><p class="txt" style="font-size: 20px">Athletes interact with this app in 3 contexts: pre-event prep, live-at-event, and post-event admin. The existing design treated all three identically. Most confusion happened at post-event admin — the moments when athletes needed to claim prizes and submit results. That's where the redesign had to win.</p></div>
-            </div>
-            <figure class="ms-figure ms-figure--app"><img src="assets/ms-showcase-feed.png" alt="Three phone screens: the redesigned Battlefield Events feed, an athlete spotlight, and upcoming races." loading="lazy" /><figcaption>Pre-event, live-at-event, and post-event surfaces — each tuned to its moment.</figcaption></figure>
-          </div>
-
-          <section class="cs-section" id="sec-solution">
-            <p class="eyebrow" style="margin-bottom:14px;">CALL TO ACTION</p>
-            <h2>Surface what matters, now.</h2>
-            <p class="cs-body">The home feed was redesigned around urgency. Battlefield event results, upcoming races, and prize totals were surfaced first. Athletes shouldn't have to search for a reason to open the app.</p>
-            <hr class="ms-rule" />
-            <div class="ms-cols" style="grid-template-columns:repeat(3,1fr);">
-              <div class="ms-col" style="padding: 26px 26px 28px"><h4>Live Battlefield Events Feed</h4><p>Real-time race results and upcoming events ranked by prize value. Athletes see what's at stake before they even open a screen.</p></div>
-              <div class="ms-col" style="padding: 26px 26px 28px"><h4>$967,125 Live Prize Counter</h4><p>A persistent prize total created ambient urgency — a daily reminder of what competing was worth.</p></div>
-              <div class="ms-col hl"><h4>Outcome</h4><p>Enlistment entry points embedded in the feed drove new signups organically from within the existing user base — no separate marketing push needed.</p></div>
-            </div>
-            <figure class="ms-figure ms-figure--app"><img src="assets/ms-showcase-enlist.png" alt="Enlistment form, athlete spotlight with feed CTAs, and a referral confirmation screen." loading="lazy" style="padding: 0px" /><figcaption>Enlistment surfaced inside the feed — discovery through context.</figcaption></figure>
-          </section>
-
-          <section class="cs-section">
-            <p class="eyebrow" style="margin-bottom:14px;">ENLISTMENT PROCESS</p>
-            <h2>Form Optimization</h2>
-            <p class="cs-body">The original sign-up form asked for everything upfront. I reduced it to the minimum viable set — name, sport, photo, submit — and moved everything else to post-acceptance profile completion. A completed signup converts; a half-finished one disappears.</p>
-            <hr class="ms-rule" />
-            <div class="ms-cols" style="grid-template-columns:repeat(3,1fr);">
-              <div class="ms-col" style="padding: 26px 26px 28px"><h4>Minimum viable enlistment</h4><p>4 fields. Under 2 minutes. Completion rate was the metric that mattered most at the top of the funnel.</p></div>
-              <div class="ms-col" style="padding: 26px 26px 28px"><h4>Referral loop at confirmation</h4><p>Post-submission confirmation immediately prompts athletes to refer friends — turning every signup into a growth event.</p></div>
-              <div class="ms-col hl"><h4>Feed-embedded CTA</h4><p>"Enlistment Starts Now" lived inside the battlefield feed — discovery through context, not a separate marketing page.</p></div>
-            </div>
-            <figure class="ms-figure ms-figure--app"><img src="assets/ms-showcase-cards.png" alt="Athlete profile and a card-based welcome sequence: Welcome, Start Getting Paid, Shop Cool Gear." loading="lazy" /><figcaption>A standardized card system carried the athlete through onboarding.</figcaption></figure>
-          </section>
-
-          <section class="cs-section">
-            <p class="eyebrow" style="margin-bottom:14px;">ONBOARDING</p>
-            <h2>Clear next steps from day one.</h2>
-            <p class="cs-body">Accepted athletes had no clear path forward. The redesigned onboarding sequence surfaced three core actions — build your resume, get paid, shop gear — immediately after offer acceptance.</p>
-            <hr class="ms-rule" />
-            <div class="ms-cols" style="grid-template-columns:repeat(3,1fr);">
-              <div class="ms-col" style="padding: 26px 26px 28px"><h4>One-tap offer acceptance</h4><p>Contract details — rank, sport, offer %, monthly allotments — surfaced clearly. No ambiguity, no email follow-up needed.</p></div>
-              <div class="ms-col" style="padding: 26px 26px 28px"><h4>3-card welcome sequence</h4><p>Each card surfaced one primary action. Not an overwhelming list of features — three clear starting points and nothing else.</p></div>
-              <div class="ms-col hl"><h4>Result: 3× faster time-to-first-event</h4><p>Athletes went from acceptance to competing within 72 hours, vs. a previous 3-week average.</p></div>
-            </div>
-            <figure class="ms-figure ms-figure--app"><img src="assets/ms-showcase-claim.png" alt="Get Paid earnings screen, athlete profile, and a $500 prize claim confirmation." loading="lazy" /><figcaption>Earnings, profile, and a visible, tracked reward — the post-event surfaces.</figcaption></figure>
-          </section>
-
-          <section class="cs-section">
-            <p class="eyebrow" style="margin-bottom:14px;">CLAIM MANAGEMENT</p>
-            <h2>Replace anxiety with visibility.</h2>
-            <p class="cs-body">The biggest trust problem wasn't just payout speed — it was the silence. Athletes didn't know what was pending, claimed, or earned. The redesign replaced email chaos with a real-time earnings dashboard.</p>
-            <hr class="ms-rule" />
-            <div class="ms-cols" style="grid-template-columns:repeat(3,1fr);">
-              <div class="ms-col" style="padding: 26px 26px 28px"><h4>Real-time earnings dashboard</h4><p>Available payouts, career earnings, and per-event claim status at a glance. Transparency as a trust mechanism.</p></div>
-              <div class="ms-col" style="padding: 26px 26px 28px"><h4>One-tap claim</h4><p>Originally 3 confirmation steps. Reduced to a single tap with immediate confirmation state — validated through two rounds of usability testing.</p></div>
-              <div class="ms-col hl"><h4>Prize celebration state</h4><p>Full-screen win confirmation — brand-consistent, visceral, shareable. Made Monster feel like it was celebrating with the athlete, not just processing a transaction.</p></div>
-            </div>
-            <div class="cs-callout" style="margin: 100px 0px 4px"><p class="lbl" style="font-weight: 700; font-size: 13px">Validate</p><p class="txt" style="font-size: 20px">Tested high-fidelity prototypes with 6 athletes over 2 rounds. Key iterations: the claim flow was reduced from 3 confirmation steps to 1 based on usability observation. The enlistment form was cut from 12 fields to 4 after watching athletes abandon mid-flow. Both changes were driven by behavior, not assumption.</p></div>
-          </section>
-
-          <div class="cs-section">
-            <p class="eyebrow" style="margin-bottom:14px;">Decisions</p>
-            <h2>Constraints &amp; Tradeoffs</h2>
-            <p class="cs-body">What I worked within — and what I consciously gave up.</p>
-            <p class="eyebrow" style="margin:6px 0 0;">Design Constraints</p>
-            <hr class="ms-rule" />
-            <div class="ms-cols" style="grid-template-columns:repeat(2,1fr);">
-              <div class="ms-col"><h4>Field-use mobile environment</h4><p>Athletes use this app at race venues, training parks, and staging areas — outdoors, one hand, gear on. Every critical interaction had to be completable in under 3 taps.</p></div>
-              <div class="ms-col"><h4>Legal compliance embedded in UI</h4><p>Athlete contracts, offer acceptance, and prize claims all had legal requirements that had to live in-product — not offloaded to email. This required close collaboration with legal and constrained the offer acceptance flow significantly.</p></div>
-              <div class="ms-col"><h4>Monster brand system lock-in</h4><p>The visual identity — claw green, dark backgrounds, aggressive type — was non-negotiable. Every layout decision had to work within a tightly defined brand design system.</p></div>
-              <div class="ms-col"><h4>Global audience, ages 13–21</h4><p>Athletes across 45 countries, middle schoolers to young adults. Copy had to be plain, actions self-evident, and the experience resilient to low-connectivity environments.</p></div>
-            </div>
-            <p class="eyebrow" style="margin:44px 0 0;">Design Trade-offs</p>
-            <hr class="ms-rule" />
-            <div class="ms-cols" style="grid-template-columns:repeat(2,1fr);">
-              <div class="ms-col"><h4>Profile completeness vs. <span class="vs">Speed</span></h4><p>Reducing enlistment from 12 fields to 4 improved completion rate but meant managers had to collect remaining info post-signup. A completed signup converts — a half-finished one disappears.</p></div>
-              <div class="ms-col"><h4>Rich animation vs. <span class="vs">Performance</span></h4><p>Removed complex micro-animations from the home feed in favor of static transitions. Event cards load faster and the feed feels snappier in low-connectivity race environments where athletes actually use it.</p></div>
-              <div class="ms-col"><h4>Feature depth vs. <span class="vs">Time-to-value</span></h4><p>Deprioritized social and community features entirely in favor of the Get Paid flow. The trust problem was financial — fixing financial visibility had to come before community building.</p></div>
-              <div class="ms-col"><h4>Custom patterns vs. <span class="vs">Native patterns</span></h4><p>Used platform-native UI components instead of custom controls. Slightly less branded but dramatically more learnable for a young, global user base encountering the app for the first time.</p></div>
-            </div>
-          </div>
-
-          <div class="cs-section" id="sec-impact">
-            <p class="eyebrow" style="margin-bottom:14px;">Impact</p>
-            <h2>MISSION ACCOMPLISHED.</h2>
-            <figure class="ms-figure"><img src="assets/ms-collage.png" alt="A collage of redesigned Monster Army screens on a Monster-green backdrop." loading="lazy" /></figure>
-            <hr class="ms-stat-rule" style="margin-top:34px;" />
-            <div class="ms-stats">
-              <div class="ms-stat"><div class="num" style="color: rgb(249, 14, 120)">92<span class="suf">%</span></div><div class="lbl">Prize claim rate</div></div>
-              <div class="ms-stat"><div class="num" style="color: rgb(249, 14, 120)">35<span class="suf">%</span></div><div class="lbl">YoY signup growth</div></div>
-              <div class="ms-stat"><div class="num"><span style="color:#f90e78;">72</span><span class="suf">h</span></div><div class="lbl">Avg. payout time</div></div>
-              <div class="ms-stat"><div class="num"><span style="color:#f90e78;">3</span><span class="suf">×</span></div><div class="lbl">Faster time-to-first-event</div></div>
-            </div>
-            <blockquote class="cs-quote" style="margin-top:36px;"><p>“The new system didn't just change how we track athletes — it changed how we communicate with them.<br />It's built for speed, just like us.”</p><cite>— Marcus Thorne, Global Director of Sports Marketing, Monster Energy</cite></blockquote>
-          </div>
-
-          <div class="cs-section" id="sec-retrospective">
-            <p class="eyebrow" style="margin-bottom:14px;">Retrospective</p>
-            <h2>What I Learned</h2>
-            <hr class="ms-rule" />
-            <div class="ms-cols" style="grid-template-columns:repeat(2,1fr);">
-              <div class="ms-col"><h4>Trust is a product problem</h4><p>I couldn't fix the payout timeline — that was ops. But I could make the uncertainty visible. Adding status transparency to the claim flow reduced anxiety even when the payout speed didn't change. Visibility is a form of trust.</p></div>
-              <div class="ms-col"><h4>Design for the environment, not the persona</h4><p>"13–21 action sports athlete" is too broad to design for. Designing for the specific context — outdoor, at-event, high pressure, one hand — was far more useful than demographic assumptions. Where you use something shapes how you use it.</p></div>
-              <div class="ms-col"><h4>Legal constraints can improve UX</h4><p>Embedding contract acceptance into the onboarding flow required close collaboration with legal. The constraint forced clearer copy and a simpler flow. The most constrained part of the product ended up being one of the most polished.</p></div>
-              <div class="ms-col"><h4>Validate your assumptions about "fast"</h4><p>I assumed athletes wanted a fast onboarding flow. What they actually wanted was a fast path to competing. Onboarding length mattered less than clarity about what came next. The assumption was adjacent to the insight — but not the same thing.</p></div>
-            </div>
-          </div>
-
-          <div class="cs-next">
-            <div><div class="lbl">Next Project</div><div class="nm">Reign Total Body Fuel</div></div>
-            <button class="btn solid" data-go="case-reign"><span>Continue<i data-icon="arrowRight" data-size="18"></i></span></button>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================= CASE STUDY · REIGN ======================= -->
-    <section class="view view-root" data-view="case-reign" hidden>
-      <div class="cs-top">
-        <div class="cs-top-inner">
-          <button class="cs-back" data-go="work"><i data-icon="arrowLeft" data-size="16"></i>All Projects</button>
-          <span class="cs-label" style="font-family: Lexend; letter-spacing: 0px; font-size: 14px">REIGN TOTAL BODY
-</span>
-        </div>
-      </div>
-      <div class="cs-shell">
-        <aside class="cs-rail">
-          <div class="cs-rail-brand">
-            <div class="cs-badge"><img src="assets/reign-helmet.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" /></div>
-            <p class="cs-badge-label">Case Study</p>
-            <p class="cs-badge-name">Reign Total Body Fuel</p>
-          </div>
-          <nav class="cs-spy">
-            <button class="cs-spy-item active" data-spy="sec-overview"><span class="cs-spy-dot"></span><span>Overview</span></button>
-            <button class="cs-spy-item" data-spy="sec-process"><span class="cs-spy-dot"></span><span>Insights</span></button>
-            <button class="cs-spy-item" data-spy="sec-solution"><span class="cs-spy-dot"></span><span>Solution</span></button>
-            <button class="cs-spy-item" data-spy="sec-impact"><span class="cs-spy-dot"></span><span>Impact</span></button>
-            <button class="cs-spy-item" data-spy="sec-retrospective"><span class="cs-spy-dot"></span><span>Retrospective</span></button>
-          </nav>
-        </aside>
-        <div class="cs-main">
-
-          <div class="cs-hero stagger">
-            <span class="chip"><i data-icon="bolt" data-size="14"></i>Brand Identity / Creative Direction</span>
-            <h1><span style="color:var(--accent);"><span style="color:#8A38F5;"><span style="color:#ffffff;">Reign Energy. </span></span></span>Total Body Fuel</h1>
-            <div class="cs-facts four">
-              <div class="cs-fact"><p class="k">Role</p><p class="v">Product Designer</p></div>
-              <div class="cs-fact"><p class="k">Timeline</p><p class="v">4 Months</p></div>
-              <div class="cs-fact"><p class="k">Deliverables</p><p class="v">Visual Identity, Marketing Assets, E-Commerce Strategy</p></div>
-              <div class="cs-fact"><p class="k">Team</p><p class="v">Designer, 1 Engineer, Digital Marketing Manager</p></div>
-            </div>
-            <figure class="cs-shot ms-hero-shot"><img src="assets/reign-hero.jpg" alt="Reign Total Body Fuel launch art — a glitch-styled athlete beside layered desktop pages for the Supreme, Inferno, and Zero Sugar campaigns." /></figure>
-          </div>
-
-          <div class="cs-section" id="sec-overview">
-            <p class="eyebrow" style="margin-bottom:14px;">Market Research</p>
-            <h2>Consumer Insights</h2>
-            <p class="cs-body">Research revealed that modern consumers prioritize functional purity over flashy marketing. We focused on transparency, technical precision, and high-contrast accessibility.</p>
-            <hr class="ms-stat-rule" style="margin-top:34px;margin-bottom:38px;" />
-            <div class="ms-stats" style="grid-template-columns:repeat(2,1fr);max-width:760px;margin:0 auto;">
-              <div class="ms-stat"><div class="num">Gen Z Athletes<span class="suf">+</span></div><div class="lbl">Primary Demographic</div><p class="ms-stat-sub">The core demographic seeking authenticity and clean labels.</p></div>
-              <div class="ms-stat"><div class="num">60<span class="suf">NPS</span></div><div class="lbl">Net Promoter Score</div><p class="ms-stat-sub">Consistent brand look &amp; feel. Alignment of in-store promo graphics, social media, and YouTube content.</p></div>
-            </div>
-            <figure class="ms-figure"><img src="assets/reign-research.jpg" alt="A spread of low-fidelity wireframes for the Reign site — product grids, promotions, ambassadors, and event pages — arranged on a purple backdrop." loading="lazy" /><figcaption>Early wireframes — mapping information architecture, content hierarchy, and the e-commerce flow before any visual design.</figcaption></figure>
-          </div>
-
-          <div class="cs-section" id="sec-process">
-            <p class="eyebrow" style="margin-bottom:14px;">Key Insights</p>
-            <h2>Design Considerations</h2>
-            <p class="cs-body">For this new product launch there were careful design decisions to consider. The upside was that the organization had other products within the sport-fitness category, giving them the necessary insights to understand the target users. We were able to set expectations based on consumer insights.</p>
-            <hr class="ms-rule accent" />
-            <div class="ms-cols" style="grid-template-columns:repeat(3,1fr);">
-              <div class="ms-col" style="padding: 26px 26px 28px"><h4>Health Conscious</h4><p>Health-conscious users prioritize what they consume, making clear nutrition facts and product benefits essential — core drivers of site engagement.</p></div>
-              <div class="ms-col" style="padding: 26px 26px 28px"><h4>Product Education</h4><p>Alongside product education, enabling seamless purchase and product discovery (via retailers like Walmart and Amazon) was critical to driving conversion.</p></div>
-              <div class="ms-col hl"><h4>Key Insight</h4><p>Competitive insights informed a more dynamic experience, leveraging influencer content and interactive product exploration to increase engagement.</p></div>
-            </div>
-          </div>
-
-          <div class="cs-section" id="sec-solution">
-            <p class="eyebrow" style="margin-bottom:14px;">Solution</p>
-            <h2>High Fidelity Artifacts</h2>
-            <p class="cs-body">High-fidelity design was where the experience truly came to life. Through refined visual systems, responsive layouts, and intentional interaction patterns, I translated strategy into a cohesive, immersive brand experience. Designing directly in the browser let me shape the nuances of motion, hierarchy, and responsiveness in real time — ensuring the final product wasn’t just visually strong, but felt seamless and alive across devices.</p>
-            <figure class="ms-figure"><img src="assets/reign-artifacts.jpg" alt="Responsive mobile mockups of the Reign experience — home, store locator, flavor detail, Instagram feed, Zero Sugar story, and the Win a Workout sweepstakes." loading="lazy" /><figcaption>The full responsive system — landing, product, social, and promotion surfaces designed mobile-first.</figcaption></figure>
-            <figure class="ms-figure"><img src="assets/reign-cans.jpg" alt="The complete Reign Total Body Fuel flavor lineup — nine cans from Melon Mania to Strawberry Sublime — on a light hex-pattern background." loading="lazy" /><figcaption>The Taste of Reign — the full flavor lineup unified under one bold visual identity.</figcaption></figure>
-            <figure class="ms-figure"><img src="assets/reign-collage.jpg" alt="Desktop flagship pages stacked into a montage — the Inferno launch, Zero Sugar story, ambassadors, Mango Mania flavor detail, and the #RULETHEDAY campaign." loading="lazy" /><figcaption>Desktop flagship pages — the Inferno launch, Zero Sugar story, ambassadors, and the #RULETHEDAY campaign.</figcaption></figure>
-          </div>
-
-          <div class="cs-section" id="sec-impact">
-            <p class="eyebrow" style="margin-bottom:14px;">Impact</p>
-            <h2>Campaign Performance</h2>
-            <hr class="ms-stat-rule" style="margin-top:34px;" />
-            <div class="ms-stats" style="grid-template-columns:repeat(3,1fr);margin:0;">
-              <div class="ms-stat"><div class="num">4.8<span class="suf">M</span></div><div class="lbl">Launch Impressions</div><p class="ms-stat-sub">Across paid and organic channels in the first 30 days.</p></div>
-              <div class="ms-stat"><div class="num">67<span class="suf">%</span></div><div class="lbl">E-Commerce Uplift</div><p class="ms-stat-sub">Direct-to-consumer sales increase following the rebrand.</p></div>
-              <div class="ms-stat"><div class="num">22</div><div class="lbl">Markets Launched</div><p class="ms-stat-sub">Simultaneous rollout across North America, EU, and APAC.</p></div>
-            </div>
-          </div>
-
-          <div class="cs-section" id="sec-retrospective">
-            <p class="eyebrow" style="margin-bottom:14px;">Retrospective</p>
-            <h2>Project Challenges</h2>
-            <p class="cs-body">This project required rapid alignment under tight timelines while building trust with a new marketing team, achieved through structured processes that enabled fast, confident decision-making.</p>
-            <hr class="ms-rule" />
-            <div class="ms-cols" style="grid-template-columns:repeat(2,1fr);">
-              <div class="ms-col"><h4>Time Constraints</h4><p>With a tight launch timeline and a new marketing team, we aligned quickly through a design sprint, validating ideas fast while building trust by involving them throughout the process.</p></div>
-              <div class="ms-col"><h4>Stakeholder Feedback</h4><p>To avoid unproductive feedback loops, I structured reviews around clear, objective criteria, leading to smoother approvals and stronger trust in design moving forward.</p></div>
-            </div>
-            <h2 style="margin-top:52px;">Lessons Learned</h2>
-            <p class="cs-body">Reflecting on the Reign Energy project provided critical insight into high-performance brand building in the digital age.</p>
-            <hr class="ms-rule" />
-            <div class="ms-cols" style="grid-template-columns:repeat(2,1fr);">
-              <div class="ms-col" style="padding: 26px 26px 28px"><h4>Design Leadership</h4><p>This project reinforced the importance of adapting process to context — balancing speed and creativity while maintaining a strong UX foundation.</p></div>
-              <div class="ms-col hl"><h4>Cross-Functional Collaboration</h4><p>Under tight timelines, alignment was critical. Clear communication and a collaborative approach kept marketing and development in sync, enabling a successful launch.</p></div>
-            </div>
-          </div>
-
-          <div class="cs-next">
-            <div><div class="lbl">Next Project</div><div class="nm">Dell Technologies</div></div>
-            <button class="btn solid" data-go="case-dell"><span>Continue<i data-icon="arrowRight" data-size="18"></i></span></button>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ============================ CONTACT ============================ -->
-  <div class="contact-overlay" hidden>
-    <div class="contact-panel">
-      <button class="close" data-close-contact aria-label="Close"><i data-icon="close" data-size="18"></i></button>
-      <p class="eyebrow">Let’s Talk.</p>
-      <h2>Bringing Enterprise Rigor &amp; Brand Emotion.</h2>
-      <p class="ph">Have a complex system that needs untangling? I’d love to hear about it. Reach out and let’s build something users can trust.</p>
-      <div class="contact-list">
-        <a class="contact-row" href="tel:+17026084065" rel="noopener"><span class="ci"><i data-icon="phone" data-size="24"></i></span><span class="ct"><span class="t">Mobile</span><span class="v">+1 (702) 608-4065</span></span><span style="margin-left:auto;color:var(--ink-faint);"><i data-icon="arrowUpRight" data-size="16"></i></span></a>
-        <a class="contact-row" href="mailto:hello@rml360.com" rel="noopener"><span class="ci"><i data-icon="send" data-size="24"></i></span><span class="ct"><span class="t">Email</span><span class="v">hello@rml360.com</span></span><span style="margin-left:auto;color:var(--ink-faint);"><i data-icon="arrowUpRight" data-size="16"></i></span></a>
-        <a class="contact-row" href="https://linkedin.com/in/somecallmenyce" target="_blank" rel="noopener"><span class="ci"><i data-icon="linkedin" data-size="24"></i></span><span class="ct"><span class="t">LinkedIn</span><span class="v">/in/somecallmenyce</span></span><span style="margin-left:auto;color:var(--ink-faint);"><i data-icon="arrowUpRight" data-size="16"></i></span></a>
-        <a class="contact-row" href="https://calendly.com/romelle-rml360/30min" target="_blank" rel="noopener"><span class="ci"><i data-icon="calendar" data-size="24"></i></span><span class="ct"><span class="t">Book a slot</span><span class="v">Schedule a 30-min chat</span></span><span style="margin-left:auto;color:var(--ink-faint);"><i data-icon="arrowUpRight" data-size="16"></i></span></a>
-      </div>
-      <div class="contact-foot">Based in Los Angeles, CA · Available for select engagements</div>
-    </div>
+    </nav>
   </div>
 
-</div>
-</div>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script>
+      (function () {
+        const toggle = document.getElementById('menu-toggle');
+        const drawer = document.getElementById('mobile-drawer');
+        const backdrop = document.getElementById('drawer-backdrop');
+        const panel = document.getElementById('drawer-panel');
+        const bar1 = document.getElementById('bar1');
+        const bar2 = document.getElementById('bar2');
+        const bar3 = document.getElementById('bar3');
+        let open = false;
 
-<aside id="tweaks-panel" aria-label="Tweaks">
-  <div class="tw-head">
-    <div class="tw-title"><span class="dot"></span>Tweaks</div>
-    <button class="tw-close" data-tw-close aria-label="Close tweaks">✕</button>
-  </div>
-  <div class="tw-body">
-    <div class="tw-sec">
-      <p class="tw-label">Color scheme</p>
-      <p class="tw-hint">The base surfaces and ink for the whole site.</p>
-      <div class="tw-seg">
-        <button data-tw-group="mode" data-tw-val="dark">Dark</button>
-      </div>
-    </div>
-    <div class="tw-sec">
-      <p class="tw-label">Accent identity</p>
-      <p class="tw-hint">The signal color that runs through the whole portfolio.</p>
-      <div class="tw-swatches">
-        <button class="tw-sw" data-tw-group="accent" data-tw-val="signal" style="background:#F90E78;" title="Signal Pink" aria-label="Signal Pink"></button>
-        <button class="tw-sw" data-tw-group="accent" data-tw-val="cyan" style="background:#18B6FF;" title="Electric Cyan" aria-label="Electric Cyan"></button>
-        <button class="tw-sw" data-tw-group="accent" data-tw-val="green" style="background:#00D17A;" title="Volt Green" aria-label="Volt Green"></button>
-        <button class="tw-sw" data-tw-group="accent" data-tw-val="ember" style="background:#FF6A1A;" title="Solar Ember" aria-label="Solar Ember"></button>
-        <button class="tw-sw" data-tw-group="accent" data-tw-val="violet" style="background:#8A38F5;" title="Ultra Violet" aria-label="Ultra Violet"></button>
-      </div>
-    </div>
-    <div class="tw-sec">
-      <p class="tw-label">Spatial density</p>
-      <p class="tw-hint">How much room the layout breathes.</p>
-      <div class="tw-seg">
-        <button data-tw-group="density" data-tw-val="compact">Compact</button>
-        <button data-tw-group="density" data-tw-val="comfortable">Comfort</button>
-        <button data-tw-group="density" data-tw-val="airy">Airy</button>
-      </div>
-    </div>
-    <div class="tw-sec">
-      <p class="tw-label">Form language</p>
-      <p class="tw-hint">From crisp and editorial to soft and friendly.</p>
-      <div class="tw-seg">
-        <button data-tw-group="shape" data-tw-val="sharp">Sharp</button>
-        <button data-tw-group="shape" data-tw-val="soft">Soft</button>
-        <button data-tw-group="shape" data-tw-val="pillowed">Pillowed</button>
-      </div>
-    </div>
-  </div>
-</aside>
+        function openMenu() {
+          open = true;
+          drawer.classList.remove('pointer-events-none');
+          backdrop.classList.remove('opacity-0');
+          backdrop.classList.add('opacity-100');
+          panel.classList.remove('translate-x-full');
+          // Animate to X
+          bar1.style.transform = 'translateY(7px) rotate(45deg)';
+          bar2.style.opacity = '0';
+          bar3.style.transform = 'translateY(-7px) rotate(-45deg)';
+          bar3.style.width = '1.5rem';
+          bar3.style.alignSelf = 'auto';
+        }
 
-<template id="__bundler_thumbnail">
-<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100" height="100" fill="#051D30" />
-  <rect x="30" y="30" width="40" height="40" rx="6" fill="none" stroke="#F90E78" stroke-width="3" />
-  <circle cx="50" cy="50" r="6" fill="#F90E78" />
-  <text x="50" y="84" font-family="sans-serif" font-size="9" font-weight="700" fill="#F0F4EF" text-anchor="middle" letter-spacing="1">RML360</text>
-</svg>
-</template>
+        function closeMenu() {
+          open = false;
+          drawer.classList.add('pointer-events-none');
+          backdrop.classList.remove('opacity-100');
+          backdrop.classList.add('opacity-0');
+          panel.classList.add('translate-x-full');
+          // Reset bars
+          bar1.style.transform = '';
+          bar2.style.opacity = '';
+          bar3.style.transform = '';
+          bar3.style.width = '';
+          bar3.style.alignSelf = '';
+        }
 
-<script src="site.js?v=1"></script>
-<script>
-  // ===================== Tweaks panel wiring =====================
-  (function () {
-    var panel = document.getElementById('tweaks-panel');
-    if (!panel) return;
-    var state = Object.assign({ mode: 'dark', accent: 'signal', density: 'comfortable', shape: 'soft' }, window.__TWEAKS || {});
-    function setActive(group, val) {
-      panel.querySelectorAll('[data-tw-group="' + group + '"]').forEach(function (b) {
-        b.classList.toggle('active', b.getAttribute('data-tw-val') === val);
-      });
-    }
-    function refresh() {
-      setActive('mode', state.mode);
-      setActive('accent', state.accent); setActive('density', state.density); setActive('shape', state.shape);
-    }
-    function persist(group, val) {
-      var edits = {}; edits[group] = val;
-      try { window.parent.postMessage({ type: '__edit_mode_set_keys', edits: edits }, '*'); } catch (e) {}
-    }
-    function set(group, val) {
-      state[group] = val;
-      if (window.__TWEAKS) window.__TWEAKS[group] = val;
-      if (window.__applyTweaks) window.__applyTweaks(state);
-      refresh();
-      persist(group, val);
-    }
-    panel.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-tw-group]');
-      if (b) { set(b.getAttribute('data-tw-group'), b.getAttribute('data-tw-val')); return; }
-      if (e.target.closest('[data-tw-close]')) {
-        panel.classList.remove('show');
-        try { window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*'); } catch (e) {}
-      }
-    });
-    window.addEventListener('message', function (e) {
-      var d = e.data || {};
-      if (d.type === '__activate_edit_mode') { panel.classList.add('show'); refresh(); }
-      else if (d.type === '__deactivate_edit_mode') { panel.classList.remove('show'); }
-    });
-    refresh();
-    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
-  })();
-</script>
-</body>
-</html>
+        toggle.addEventListener('click', () => open ? closeMenu() : openMenu());
+        backdrop.addEventListener('click', closeMenu);
+      })();
+  </script>
 
-<style id="__om-edit-overrides">
-#sec-discovery .cs-callout svg { width: 79px !important }
-#sec-discovery .cs-callout svg { height: 38px !important }
-#sec-discovery .cs-callout svg { height: 192px !important }
-#sec-discovery .cs-callout svg { height: 107px !important }
-#sec-discovery .cs-callout svg { width: 161px !important }
-#sec-discovery .cs-callout svg { height: 126px !important }
-#sec-discovery .cs-callout svg { height: 119px !important }
-#sec-discovery .cs-callout svg { width: 160px !important }
-</style>
+  <!-- MAIN -->
+  <main class="min-h-screen relative overflow-hidden" id="main-content">
+
+    <!-- Background -->
+    <div class="absolute inset-0 z-0" aria-hidden="true">
+      <div class="animated-bg absolute inset-0 opacity-40"></div>
+      <div class="mesh-bulb bulb-1"></div>
+      <div class="mesh-bulb bulb-2"></div>
+      <div class="absolute top-0 right-0 w-[700px] h-[700px] bg-primary/5 rounded-full blur-[120px] -mr-96 -mt-96">
+      </div>
+      <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -ml-48 -mb-48">
+      </div>
+      <div class="dot-grid absolute inset-0"></div>
+    </div>
+
+    <!-- Hero -->
+    <section class="relative z-10 px-6 lg:px-16 pt-32 lg:pt-24 pb-24 w-full max-w-[1600px] mx-auto">
+      <div class="space-y-8">
+
+        <div class="inline-flex items-center gap-3">
+          <div class="h-px w-8 bg-primary"></div>
+          <span class="text-primary font-label font-bold text-xs tracking-[0.2rem] uppercase fade-up delay-1">Hi, I'm
+            Romelle</span>
+        </div>
+
+        <h1
+          class="font-headline font-black text-on-surface text-4xl  lg:text-[4vw] xl:text-[3vw] leading-[1.05] tracking-tight fade-up delay-2">
+          Designing Systems &<br>
+          Brands People Trust
+        </h1>
+
+        <div class="flex flex-col xl2:flex-row xl2:items-end xl2:justify-between gap-8 pt-2">
+          <p class="text-on-surface-variant text-md leading-relaxed fade-up delay-3">
+            Bridging the gap between business decision-makers, developers,<br> designers, and users through strategic
+            visual
+            architecture.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 shrink-0 fade-up delay-4">
+            <a href="work.html"
+              class="inline-block text-center px-8 py-4 border border-primary text-primary font-headline font-bold text-base uppercase tracking-widest rounded-full relative overflow-hidden group btn-fill-hover">
+              <span class="absolute inset-0 bg-primary btn-fill z-0"></span>
+              <span class="relative z-10 group-hover:text-on-primary transition-colors duration-300">Explore
+                Portfolio</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento Grid -->
+      <div class="mt-32 grid grid-cols-1 md:grid-cols-3 gap-6 fade-up delay-5 w-full max-w-[1600px] mx-auto">
+
+        <div
+          class="bg-surface-container-low/60 backdrop-blur-sm rounded-md p-8 group hover:bg-surface-container-high transition-all duration-300">
+          <div class="h-12 w-12 bg-primary/10 rounded-md flex items-center justify-center mb-8">
+            <span class="material-symbols-outlined text-primary">online_prediction</span>
+          </div>
+          <h3 class="text-2xl font-bold font-headline mb-4">System Level Thinking</h3>
+          <p class="text-on-surface-variant text-md leading-relaxed">Converting complex business logic into intuitive,
+            navigable
+            paths for the user.</p>
+        </div>
+
+        <div
+          class="bg-surface-container-low/60 backdrop-blur-sm rounded-md p-8 group hover:bg-surface-container-high transition-all duration-300">
+          <div class="h-12 w-12 bg-primary/10 rounded-md flex items-center justify-center mb-8">
+            <span class="material-symbols-outlined text-primary"
+              style='font-variation-settings:"FILL" 1;'>auto_awesome</span>
+          </div>
+          <h3 class="text-2xl font-bold font-headline mb-4">Design Leadership</h3>
+          <p class="text-on-surface-variant text-md leading-relaxed">Acting as a strategic link between business
+            decision-makers and developers to ensure visual architecture aligns with functional needs.</p>
+        </div>
+
+        <div
+          class="md:col-span-2 bg-surface-container-low/60 backdrop-blur-sm rounded-md p-8 group hover:bg-surface-container-high transition-all duration-300 relative overflow-hidden">
+          <div class="h-12 w-12 bg-primary/10 rounded-md flex items-center justify-center mb-8">
+            <span class="material-symbols-outlined text-primary"
+              style='font-variation-settings:"FILL" 1;'>campaign</span>
+
+          </div>
+          <h3 class="text-2xl font-bold font-headline mb-4">Design Engineer</h3>
+          <p class="text-on-surface-variant text-md mb-6 leading-relaxed">Architecting workflows that integrate AI
+            tooling into
+            the core of the product lifecycle.</p>
+        </div>
+
+        <div
+          class="md:col-span-4 bg-surface-container-low/60 backdrop-blur-sm rounded-md p-8 group hover:bg-surface-container-high transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[300px]">
+          <div class="bg-primary/5 absolute top-0 right-0 w-64 h-64 blur-3xl -mr-24 -mt-24 rounded-full"
+            aria-hidden="true"></div>
+          <div
+            class="absolute top-4 right-4 text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <a href="case-dell.html"><span class="material-symbols-outlined text-4xl">north_east</span></a>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold font-headline mb-4 ">Recent Project: Dell Virtual Assistant for Product
+              Configuration</h3>
+            <p class="text-on-surface-variant text-md leading-relaxed max-w-4xl">Redesigning the solution orchestration
+              layer for enterprise-level IT infrastructure. Reframing the problem from “improving usability” to
+              restoring trust and confidence under time constraints. The result was a unified configuration workspace
+              that reduced cognitive load, minimized errors, and improved sales efficiency.</p>
+          </div>
+          <div class="relative z-10 pt-8">
+            <div class="w-full h-100 rounded-md bg-surface-container overflow-hidden border border-outline-variant/10">
+              <img src="img/AICPQ.png" alt="Dell Product Configurator UI preview"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 px-8 mt-24 bg-surface-container-lowest relative z-10">
+      <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        <p class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant">© 2025 Romelle Domingo</p>
+        <!-- <div class="flex items-center gap-8">
+          <a href="tel:+"
+            class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant hover:text-primary transition-all duration-300">Mobile</a>
+          <a href="/cdn-cgi/l/email-protection#86"
+            class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant hover:text-primary transition-all duration-300">Email</a>
+          <a href="https://linkedin.com/in/" target="_blank" rel="noopener"
+            class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant hover:text-primary transition-all duration-300">LinkedIn</a>
+        </div> -->
+        <p class="font-label text-[11px] tracking-[0.1rem] uppercase text-on-surface-variant/40">Built with Precision
